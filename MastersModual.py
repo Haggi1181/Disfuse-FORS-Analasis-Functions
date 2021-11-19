@@ -9,7 +9,6 @@ import os
 import shutil
 import math
 
-print("Canary")
 
 from google.colab import auth
 auth.authenticate_user()
