@@ -413,8 +413,8 @@ def FullMixingSpectratoTXT(fpRaw1, dcRaw1, rfRaw1, fpRaw2, dcRaw2, rfRaw2, fpRaw
 
 def MixingLinePlotGenorator(Base1, Base2, Mix, Gen, Legend):
     """
-    
-    
+    Function to genorate a plot of the base pigments, the resultent mixed pigments and a estimation of mixing on one plot dividing up lines for prodicted peeks into quadrants
+    args Base1: File path for processed spectra of base pigment, Base2: File path for prossesed Spectra of other base pigment, Mix: File path for prossesed spectra for mixed pigment, Gen: File path for genorated pigment, Legend: legend names for plotting each line
     """
     PlotProcessedSpectra(Base1, MatPlotLibColour = "r", Label = Legend[0])
     plt.vlines(PeekFinderTXT(Base1),ymin = 0, ymax=0.25, colors = "r")
@@ -430,8 +430,9 @@ def MixingLinePlotGenorator(Base1, Base2, Mix, Gen, Legend):
 
 def MixingPlotFullGen(fpRaw1, dcRaw1, rfRaw1, fpRaw2, dcRaw2, rfRaw2, fpRawMixed, dcRawMixed, rfRawMixed, SaveDir, Legend = [None, None, None, None]):
     """
-    
-    
+    Function to tern 3 raw readings of 2 base pigments and one mixed into a plot of pigments and there respective detected peeks
+    Args Raw1, Raw2, Mixed all indicate the 3 pices of recorded data shown below, SaveDir: Save Directory for Prossesed Data, HeaderSize: Number of skip lines in begginging of text file, Legend: Legends for plots
+    fp: Raw Data, dc: Dark Count, rf: Reflectence Standard
     """
     FullMixingSpectratoTXT(fpRaw1, dcRaw1, rfRaw1, fpRaw2, dcRaw2, rfRaw2, fpRawMixed, dcRawMixed, rfRawMixed, SaveDir)
     
