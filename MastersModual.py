@@ -9,6 +9,8 @@ import os
 import shutil
 import math
 
+print("test")
+
 from google.colab import auth
 auth.authenticate_user()
 
