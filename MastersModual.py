@@ -19,6 +19,9 @@ from oauth2client.client import GoogleCredentials
 
 gc = gspread.authorize(GoogleCredentials.get_application_default())
 
+
+
+
 def PlotProcessedSpectra(DataFilePath, MatPlotLibColour = None, HeaderSize = 0, Label = None, title = None):
     """
     Fuction to plot a already genorated FORS spectra
