@@ -4,22 +4,36 @@ Python Module Created for My Masters in Physics Project in Diffuse Fibre Optic R
 ONLY FOR GOOGLE COLAB
 
 Dependencies
+
 scipy
+
 numpy
+
 scipy interpolate
+
 matplotlib.pyplot
+
 glob
+
 scipy misc
+
 scipy signal
+
 os
+
 shutil
+
 math
+
 google.colab auth
+
 gspread
+
 oauth2client.client GoogleCredentials
 
 Google Colab Headers to Import Function and Load Changes to Modual
---- indicates different cell
+```
+/// indicates different cell
 !pip install GitPython
 ---
 from google.colab import drive
@@ -38,3 +52,4 @@ sys.path.insert(1, "/testing/")
 import MastersModual as mm
 importlib.reload(mm)
 ---
+```
