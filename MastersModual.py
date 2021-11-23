@@ -451,7 +451,7 @@ def MixingPlotFullGen(fpRaw1, dcRaw1, rfRaw1, fpRaw2, dcRaw2, rfRaw2, fpRawMixed
 
     MixingLinePlotGenorator(Base1, Base2, Mix, Gen, Legend)
 
-def ProssesedFolderPeekToTXT(Dir, SaveDir = Dir, Headersize = 0):
+def ProssesedFolderPeekToTXT(Dir, SaveDir, Headersize = 0):
     arrFilePaths = []
     arrFileName = []
 
