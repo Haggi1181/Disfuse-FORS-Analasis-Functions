@@ -451,8 +451,24 @@ def MixingPlotFullGen(fpRaw1, dcRaw1, rfRaw1, fpRaw2, dcRaw2, rfRaw2, fpRawMixed
 
     MixingLinePlotGenorator(Base1, Base2, Mix, Gen, Legend)
 
+def ProssesedFolderPeekToTXT(Dir, SaveDir = Dir, Headersize = 0):
+    arrFilePaths = []
+    arrFileName = []
 
-
+    Dir = Dir + "/*.txt"
+    for filepath in (glob.glob(Dir)):
+        arrFilePaths.append(filepath)
+        arrFileName.append(os.path.basename(filepath))
+        #print("File Loaded")
+    i = 0
+    temp = []    
+    while i< len(arrFilePaths):
+        temp = PeekFinderTXT(arrFilePaths[i], Headersize)
+        finalpath = SaveDir + SaveFileName + "Peeks" + ".txt"
+        sp.savetxt(finalpath, temp)
+        i = i+1
+        #print("Data Read")
+    i = 0
 
 
 
