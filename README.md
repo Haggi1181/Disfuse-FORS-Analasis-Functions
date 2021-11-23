@@ -5,20 +5,36 @@ ONLY FOR GOOGLE COLAB
 
 Dependencies
 scipy
-import numpy as np
-from scipy import interpolate
-import matplotlib.pyplot as plt
-import glob
-from scipy import misc
-from scipy import signal
-import os
+numpy
+scipy interpolate
+matplotlib.pyplot
+glob
+scipy misc
+scipy signal
+os
+shutil
+math
+google.colab auth
+gspread
+oauth2client.client GoogleCredentials
+
+Google Colab Headers to Import Function and Load Changes to Modual
+### - indicates different cell
+!pip install GitPython
+###
+from google.colab import drive
+drive.mount('/content/drive')
+###
+from git import Repo
 import shutil
-import math
+import sys
+import importlib
 
+#shutil.rmtree("/testing/")#uncomment for second run
+Repo.clone_from("https://github.com/Haggi1181/Disfuse-FORS-Analasis-Functions.git", "/testing/")
 
+sys.path.insert(1, "/testing/")
 
-from google.colab import auth
-auth.authenticate_user()
-
-import gspread
-from oauth2client.client import GoogleCredentials
+import MastersModual as mm
+importlib.reload(mm)
+###
