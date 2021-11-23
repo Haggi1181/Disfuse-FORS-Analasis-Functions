@@ -452,6 +452,10 @@ def MixingPlotFullGen(fpRaw1, dcRaw1, rfRaw1, fpRaw2, dcRaw2, rfRaw2, fpRawMixed
     MixingLinePlotGenorator(Base1, Base2, Mix, Gen, Legend)
 
 
+
+
+
+
 def PeekFinderTXT(DataPath, HeaderSize = 0):
     """
     Peek finder for already processed data
@@ -473,12 +477,12 @@ def funPeekFinder(arrSpectralX, arrSpectralY):
     a = 0
     while a != len(arrSpectralX):
         if math.isnan(arrSpectralY[a])==True:
-            arrSpectralX[a] = 0
-            arrSpectralY[a] = 0
+            arrSpectralX[a] = -10000
+            arrSpectralY[a] = -10000
         a = a + 1
-    tempx = filter(lambda c: c != 0, arrSpectralX)
+    tempx = filter(lambda c: c != -10000, arrSpectralX)
     arrSpectralX = list(tempx)
-    tempy = filter(lambda c: c != 0, arrSpectralY)
+    tempy = filter(lambda c: c != -10000, arrSpectralY)
     arrSpectralY = list(tempy)
 
 
