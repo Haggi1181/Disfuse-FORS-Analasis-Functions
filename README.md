@@ -5,19 +5,19 @@ ONLY FOR GOOGLE COLAB
 
 Dependencies
 
-scipy
-
 numpy
 
-scipy   interpolate
+scipy
+
+scipy.interpolate
+
+scipy.misc
+
+scipy.signal
 
 matplotlib.pyplot
 
 glob
-
-scipy   misc
-
-scipy   signal
 
 os
 
@@ -25,11 +25,11 @@ shutil
 
 math
 
-google.colab   auth
+google.colab.auth
 
 gspread
 
-oauth2client.client   GoogleCredentials
+oauth2client.client.GoogleCredentials
 
 Google Colab Headers to Import Function and Load Changes to Modual
 ```
