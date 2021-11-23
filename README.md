@@ -34,6 +34,7 @@ oauth2client.client.GoogleCredentials
 ## Google Colab Headers to Import Function and Load Changes to Modual
 ```
 ### indicates different cell
+
 !pip install GitPython
 ###
 from google.colab import drive
@@ -51,5 +52,4 @@ sys.path.insert(1, "/testing/")
 
 import MastersModual as mm
 importlib.reload(mm)
-###
 ```
