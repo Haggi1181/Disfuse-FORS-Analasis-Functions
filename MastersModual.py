@@ -464,7 +464,7 @@ def ProssesedFolderPeekToTXT(Dir, SaveDir, Headersize = 0):
     temp = []    
     while i< len(arrFilePaths):
         temp = PeekFinderTXT(arrFilePaths[i], Headersize)
-        finalpath = SaveDir + arrFilePaths[i] + "Peeks" + ".txt"
+        finalpath = SaveDir + arrFileName[i] + "Peeks" + ".txt"
         sp.savetxt(finalpath, temp)
         i = i+1
         #print("Data Read")
