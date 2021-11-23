@@ -1,9 +1,9 @@
 # Disfuse-FORS-Analasis-Functions
 Python Module Created for My Masters in Physics Project at Exeter University in Diffuse Fibre Optic Reflectence Spectral Analysis
 
-ONLY FOR GOOGLE COLAB
+** ONLY FOR GOOGLE COLAB **
 
-Dependencies
+## Dependencies
 
 numpy
 
@@ -31,7 +31,7 @@ gspread
 
 oauth2client.client.GoogleCredentials
 
-Google Colab Headers to Import Function and Load Changes to Modual
+## Google Colab Headers to Import Function and Load Changes to Modual
 ```
 ### indicates different cell
 !pip install GitPython
