@@ -5,31 +5,31 @@ Python Module Created for My Masters in Physics Project at Exeter University in 
 
 ## Dependencies
 
-numpy
+-numpy
 
-scipy
+-scipy
 
-scipy.interpolate
+-scipy.interpolate
 
-scipy.misc
+-scipy.misc
 
-scipy.signal
+-scipy.signal
 
-matplotlib.pyplot
+-matplotlib.pyplot
 
-glob
+-glob
 
-os
+-os
 
-shutil
+-shutil
 
-math
+-math
 
-google.colab.auth
+-google.colab.auth
 
-gspread
+-gspread
 
-oauth2client.client.GoogleCredentials
+-oauth2client.client.GoogleCredentials
 
 ## Google Colab Headers to Import Function and Load Changes to Modual
 ```
