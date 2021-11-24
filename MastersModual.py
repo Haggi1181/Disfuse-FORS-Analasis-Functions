@@ -21,7 +21,7 @@ gc = gspread.authorize(GoogleCredentials.get_application_default())
 
 
 
-print("Initialisation Complete")
+#print("Initialisation Complete")
 
 
 
