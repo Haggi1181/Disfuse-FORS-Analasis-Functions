@@ -484,10 +484,10 @@ def PeekFinderTXT(DataPath, HeaderSize = 0):
     """
 
     SpectraX, SpectraY = sp.loadtxt(DataPath, unpack = True, skiprows = HeaderSize)
-    arr0 = funPeekFinder(SpectraX, SpectraY)
+    arr0 = PeekFinder(SpectraX, SpectraY)
     return arr0
 
-def funPeekFinder(arrSpectralX, arrSpectralY):
+def PeekFinder(arrSpectralX, arrSpectralY):
     """
     Peek finder for FORS reflectence spectra between 400 and 900nm
     Args arrSpectralX: X values for spectrum, arrSpectralY, Y values for spectrum

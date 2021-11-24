@@ -95,7 +95,7 @@ importlib.reload(mm)
     - Peek finder for already processed data
     - Args DataPath: Full file path for raw data, HeaderSize: number of lines to skip at top of file
     - Returns: Array of peek locations
-- funPeekFinder
+- PeekFinder
     - Peek finder for FORS reflectence spectra between 400 and 900nm
     - Args arrSpectralX: X values for spectrum, arrSpectralY, Y values for spectrum
     - Returns: Array of peek locations
