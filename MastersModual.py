@@ -474,8 +474,6 @@ def ProssesedFolderPeekToTXT(Dir, SaveDir, Headersize = 0):
         #print("Data Read")
     i = 0
 
-
-
 def PeekFinderTXT(DataPath, HeaderSize = 0):
     """
     Peek finder for already processed data
