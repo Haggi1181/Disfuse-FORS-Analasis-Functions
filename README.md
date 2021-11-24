@@ -1,7 +1,7 @@
 # Disfuse-FORS-Analasis-Functions
 Python Module Created for My Masters in Physics Project at Exeter University in Diffuse Fibre Optic Reflectence Spectral Analysis
 
-**ONLY FOR GOOGLE COLAB**
+**FOR GOOGLE COLAB**
 
 ## Dependencies
 
