@@ -41,7 +41,6 @@ def PlotProcessedSpectra(DataFilePath, MatPlotLibColour = None, HeaderSize = 0, 
     plt.ylabel("Reflectence")
     plt.legend()
 
-
 def PlotFolderTxt(Dir, MatPlotLibColour = None, HeaderSize = 0, title = None):
     """
     Fuction to plot all text files in a given dirrectory
@@ -72,7 +71,6 @@ def PlotFolderTxt(Dir, MatPlotLibColour = None, HeaderSize = 0, title = None):
     plt.ylabel("Reflectence")
     plt.legend()
 
-
 def SpectralGenAndSave(RawDataDir, DarkCountDir, ReflectanceStanderdDir, SaveDir, SaveFileName, HeaderSize = 14):
     """
     Function to genorate and save a single FORS spectra
@@ -87,7 +85,6 @@ def SpectralGenAndSave(RawDataDir, DarkCountDir, ReflectanceStanderdDir, SaveDir
 
     finalpath = SaveDir + SaveFileName + ".txt"
     sp.savetxt(finalpath, np.column_stack([xRaw, ySpectra]))
-
 
 def MatchingDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize = 14):
     """
