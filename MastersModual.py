@@ -123,8 +123,6 @@ def MatchingDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName,
         SpectralGenAndSave(arrFilePaths[i], DarkCountFileName, ReflectenceStandardFileName, SaveDir, arrFileName[i])
         i=i+1
 
-
-
 def DiffuseRefelctencePlot(LegendName, SpreadSheet, DarkCountIndex, ReflectenceStandardIndex, DataIndex, MatPlotLibColour=None):
     """
     Function to plot FORS Spectra between 400 and 900nm
