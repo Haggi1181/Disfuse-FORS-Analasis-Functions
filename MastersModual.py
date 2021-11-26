@@ -585,7 +585,7 @@ def PeekFinder(arrSpectralX, arrSpectralY):
     arrDerivative = []
     arrDerWave = []
     arr0 = []
-    runningpeek = 600#typical begginging of ramp up section of spectra
+    runningpeek = 600.0#typical begginging of ramp up section of spectra
 
     i=400.0#at 400, beggingin of data range
     while i <= 900.0:#Loops for length of spectral data
@@ -616,7 +616,7 @@ def PeekFinder(arrSpectralX, arrSpectralY):
         #         print("Pass Turning Low")
         #     if funInterpFunction(i+1)<funInterpFunction(i):
         #         print("Pass Turning High")
-        i=i+1
+        i=i+1.0
     #check to see if the found peek is close enough to the max reflectivity of the overall spectra to be considerd the leveling off point
     if funInterpFunction(runningpeek) <= max(arrSmoothedY)-0.2 and runningpeek != 600.0:
         pass
