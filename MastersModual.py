@@ -503,8 +503,8 @@ def PeekFinder(arrSpectralX, arrSpectralY):
     objSmoothed = sp.interpolate.splrep(arrSpectralX, arrSpectralY, s=0.005)
     arrSmoothedY = sp.interpolate.splev(arrSpectralX,objSmoothed)
     funInterpFunction = sp.interpolate.interp1d(arrSpectralX, arrSmoothedY, fill_value= "extrapolate")
-    
-    arrSpectralX = linspace(200, 1000, 800)
+
+    arrSpectralX = sp.linspace(200, 1000, 800)
     arrSmoothedY = funInterpFunction(arrSpectralX)
 
     objSmoothed = sp.interpolate.splrep(arrSpectralX, arrSmoothedY, s=0.003)
