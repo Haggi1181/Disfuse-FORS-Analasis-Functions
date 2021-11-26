@@ -530,7 +530,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0):
     i = 0
 
     for filepath in (glob.glob("/content/*.png")):
-        shutil.copy(filepath, SaveDir)
+        shutil.move(filepath, SaveDir)
 
 
 
