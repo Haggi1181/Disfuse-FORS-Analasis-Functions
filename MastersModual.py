@@ -533,7 +533,7 @@ def PeekFinder(arrSpectralX, arrSpectralY):
         if misc.derivative(funInterpFunction,(i-1))>0 and misc.derivative(funInterpFunction,(i+1))<0:#checks for a change in sign of derivative
             booInflectionTest = True#sets state if true
         #performes the following checks, a threshhold check on the value of the derivative that it is close enough to 0, a value to make shore the peek isnt on the "floor" of the spectra, to see if there was a change in sign in the derivative and to see if the values before and after are smaller than the current one
-        if abs(misc.derivative(funInterpFunction, i))<0.001 and funInterpFunction(i)>min(arrSmoothedY)*1.1 and booInflectionTest == True and funInterpFunction(i-5)<funInterpFunction(i) and funInterpFunction(i+5)<funInterpFunction(i):
+        if abs(misc.derivative(funInterpFunction, i))<0.001 and funInterpFunction(i)>min(arrSmoothedY)*1.1 and booInflectionTest == True and funInterpFunction(i-1)<funInterpFunction(i) and funInterpFunction(i+1)<funInterpFunction(i):
             arr0.append(i)#if all tests are true saves the location of the peek
             #print("Maxima Detected at:", i, " Value:",funInterpFunction(i), " Derivative:", misc.derivative(funInterpFunction, i)) #Debug Print
 
