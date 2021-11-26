@@ -480,6 +480,62 @@ def PeekFinderTXT(DataPath, HeaderSize = 0):
     arr0 = PeekFinder(SpectraX, SpectraY)
     return arr0
 
+def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0):
+    """
+
+
+    """
+    #loading spectral data base
+    arrFilePaths = []
+
+    for filepath in (glob.glob(Dir + "/*.txt")):
+        arrFilePaths.append(filepath)
+
+    names = [os.path.basename(x) for x in glob.glob(Dir + "/*.txt")]
+
+    i = 0
+
+    xMixesData = [None]*len(arrFilePaths)
+    yMixesData = [None]*len(arrFilePaths)
+
+    while i< len(arrFilePaths):
+        xMixesData[i],yMixesData[i] = sp.loadtxt(arrFilePaths[i], unpack = True)
+        i = i+1
+    i = 0
+
+    while i < len(arrFilePaths):
+        a = 0
+        while a < len(xMixesData[i]):
+            yMixesData[i][a] = yMixesData[i][a]/100
+            if xMixesData[i][a] < 400 or xMixesData[i][a] > 900:
+                xMixesData[i][a] = 0
+                yMixesData[i][a] = 0
+            a = a + 1
+        tempx = filter(lambda c: c != 0, xMixesData[i])
+        xMixesData[i] = list(tempx)
+        tempy = filter(lambda c: c != 0, yMixesData[i])
+        yMixesData[i] = list(tempy)
+        plt.title(names[i])
+        plt.xlabel("Wavelength/nm")
+        plt.ylabel("Reflectence/%")
+        plt.plot(xMixesData[i], yMixesData[i])
+        test = PeekFinder(xMixesData[i], yMixesData[i])
+        plt.text(400,0,test)
+        plt.xlim(400,900)
+        plt.ylim(0,1)
+        plt.vlines(test, ymin = 0, ymax=1, colors = "r")
+        plt.savefig("A{00}.png".format(i))
+        plt.clf()
+        i = i + 1
+    i = 0
+
+    for filepath in (glob.glob("/content/*.png")):
+        shutil.copy(filepath, SaveDir)
+
+
+
+
+
 def PeekFinder(arrSpectralX, arrSpectralY):
     """
     Peek finder for FORS reflectence spectra between 400 and 900nm
