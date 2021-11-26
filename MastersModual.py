@@ -500,7 +500,7 @@ def PeekFinder(arrSpectralX, arrSpectralY):
 
 
     #Smoothes input array
-    objSmoothed = sp.interpolate.splrep(arrSpectralX, arrSpectralY, s=0.005)
+    objSmoothed = sp.interpolate.splrep(arrSpectralX, arrSpectralY, s=0.005, xb = 0, xe = 5)
     arrSmoothedY = sp.interpolate.splev(arrSpectralX,objSmoothed)
     objSmoothed = sp.interpolate.splrep(arrSpectralX, arrSmoothedY, s=0.003)
     arrSmoothedY = sp.interpolate.splev(arrSpectralX,objSmoothed)
