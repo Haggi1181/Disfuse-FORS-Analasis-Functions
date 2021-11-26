@@ -504,7 +504,7 @@ def PeekFinder(arrSpectralX, arrSpectralY):
     arrSmoothedY = sp.interpolate.splev(arrSpectralX,objSmoothed)
     objSmoothed = sp.interpolate.splrep(arrSpectralX, arrSmoothedY, s=0.001)
     arrSmoothedY = sp.interpolate.splev(arrSpectralX,objSmoothed)
-    #plt.plot(arrSpectralX, arrSmoothedY)#Testing plot
+    plt.plot(arrSpectralX, arrSmoothedY, linewidth = 1, color = "k")#Testing plot
     #interpulates the genorated smoothed array to fill in gaps for processing
     funInterpFunction = sp.interpolate.interp1d(arrSpectralX, arrSmoothedY, fill_value= "extrapolate")
 
