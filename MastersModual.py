@@ -521,7 +521,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
         plt.plot(xMixesData[i], yMixesData[i])
         test = PeekFinder(xMixesData[i], yMixesData[i], debug)
         if debug == True:
-            shutil.move("/content/debug.txt", SaveDir + names[i])
+            shutil.move("/content/debug.txt", SaveDir + "/" + names[i])
         plt.text(400,0,test)
         plt.xlim(400,900)
         plt.ylim(0,1)
@@ -602,18 +602,18 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
         #Debuging Prints
         if debug == True:
             f = open("debug.txt", "w")
-            savetext = "at:" + str(i) + " Value:" + str(funInterpFunction(i)) + " Derivative:" + str(misc.derivative(funInterpFunction, i))
+            savetext = "at:" + str(i) + " Value:" + str(funInterpFunction(i)) + " Derivative:" + str(misc.derivative(funInterpFunction, i) + "\n")
             f.write(savetext)
             if abs(misc.derivative(funInterpFunction, i))<0.001:
-                f.write("Pass Derivative Threshhold")
+                f.write("Pass Derivative Threshhold"+ "\n")
             if funInterpFunction(i)>min(arrSmoothedY)*1.1:
-                f.write("Pass Floor")
+                f.write("Pass Floor"+ "\n")
             if booInflectionTest == True:
-                f.write("Pass Inflection")
+                f.write("Pass Inflection"+ "\n")
             if funInterpFunction(i-1)<funInterpFunction(i):
-                f.write("Pass Turning Low")
+                f.write("Pass Turning Low"+ "\n")
             if funInterpFunction(i+1)<funInterpFunction(i):
-                f.write("Pass Turning High")
+                f.write("Pass Turning High"+ "\n")
         i=i+1.0
     #check to see if the found peek is close enough to the max reflectivity of the overall spectra to be considerd the leveling off point
     if funInterpFunction(runningpeek) <= max(arrSmoothedY)-0.2 and runningpeek <= 601.0:
