@@ -585,6 +585,10 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
     arr0 = []
     runningpeek = 600.0#typical begginging of ramp up section of spectra
 
+    if debug = True:
+        f = open("debug.txt", "w")
+
+
     i=400.0#at 400, beggingin of data range
     while i <= 900.0:#Loops for length of spectral data
         #resets inflection test state veriable
@@ -601,7 +605,6 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
             runningpeek = i#moves the value of the detected peek up untill the mode changes
         #Debuging Prints
         if debug == True:
-            f = open("debug.txt", "w")
             savetext = "at:" + str(i) + " Value:" + str(funInterpFunction(i)) + " Derivative:" + str(misc.derivative(funInterpFunction, i)) + "\n"
             f.write(savetext)
             if abs(misc.derivative(funInterpFunction, i))<0.001:
