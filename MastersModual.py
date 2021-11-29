@@ -482,8 +482,8 @@ def PeekFinderTXT(DataPath, HeaderSize = 0):
 
 def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0):
     """
-
-
+    Function to genorate plots for all prossesed data found in a directory
+    Args Dir: Directory containting all data, SaveDir: Location to save plots, Headersize: Number of likes to skip at beggining of reading data
     """
     #loading spectral data base
     arrFilePaths = []

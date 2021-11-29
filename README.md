@@ -99,3 +99,6 @@ importlib.reload(mm)
     - Peek finder for FORS reflectence spectra between 400 and 900nm
     - Args arrSpectralX: X values for spectrum, arrSpectralY, Y values for spectrum
     - Returns: Array of peek locations
+- PeekFinderPlotGenorater
+    - Function to genorate plots for all prossesed data found in a directory
+    - Args Dir: Directory containting all data, SaveDir: Location to save plots, Headersize: Number of likes to skip at beggining of reading data
