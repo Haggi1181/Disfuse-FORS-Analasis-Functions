@@ -526,7 +526,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
         plt.xlim(400,900)
         plt.ylim(0,1)
         plt.vlines(test, ymin = 0, ymax=1, colors = "r")
-        plt.savefig("A{00}.png".format(i))
+        plt.savefig(os.path.splitext(names[i])[0] + ".png")
         plt.clf()
         i = i + 1
     i = 0
