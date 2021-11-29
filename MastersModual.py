@@ -602,7 +602,8 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
         #Debuging Prints
         if debug == True:
             f = open("debug.txt", "w")
-            f.write(str("at:" + i + " Value:" + funInterpFunction(i) + " Derivative:" + misc.derivative(funInterpFunction, i)))
+            savetext = "at:" + str(i) + " Value:" + str(funInterpFunction(i)) + " Derivative:" + str(misc.derivative(funInterpFunction, i))
+            f.write(savetext)
             if abs(misc.derivative(funInterpFunction, i))<0.001:
                 f.write("Pass Derivative Threshhold")
             if funInterpFunction(i)>min(arrSmoothedY)*1.1:
