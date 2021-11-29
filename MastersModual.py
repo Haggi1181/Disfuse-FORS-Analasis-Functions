@@ -626,7 +626,7 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
         pass
     else:
         if debug == True:
-            f.Write("RunningPeek Saved \n")
+            f.write("RunningPeek Saved \n")
             f.write("RunningPeek Val:" + str(runningpeek))
         arr0.append(runningpeek)
     return(arr0)
