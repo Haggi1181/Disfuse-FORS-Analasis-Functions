@@ -583,7 +583,7 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
     arrDerivative = []
     arrDerWave = []
     arr0 = []
-    runningpeek = 600.0#typical begginging of ramp up section of spectra
+    runningpeek = 400.0#typical begginging of ramp up section of spectra
 
     if debug == True:
         f = open("debug.txt", "w")
