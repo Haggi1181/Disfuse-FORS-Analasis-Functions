@@ -480,7 +480,7 @@ def PeekFinderTXT(DataPath, HeaderSize = 0):
     arr0 = PeekFinder(SpectraX, SpectraY)
     return arr0
 
-def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0):
+def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
     """
     Function to genorate plots for all prossesed data found in a directory
     Args Dir: Directory containting all data, SaveDir: Location to save plots, Headersize: Number of likes to skip at beggining of reading data
@@ -519,7 +519,9 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0):
         plt.xlabel("Wavelength/nm")
         plt.ylabel("Reflectence/%")
         plt.plot(xMixesData[i], yMixesData[i])
-        test = PeekFinder(xMixesData[i], yMixesData[i])
+        test = PeekFinder(xMixesData[i], yMixesData[i], debug)
+        if debug == True:
+            shutil.move("/content/debug.txt", SaveDir + names[i])
         plt.text(400,0,test)
         plt.xlim(400,900)
         plt.ylim(0,1)
@@ -532,7 +534,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0):
     for filepath in (glob.glob("/content/*.png")):
         shutil.move(filepath, SaveDir)
 
-def PeekFinder(arrSpectralX, arrSpectralY):
+def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
     """
     Peek finder for FORS reflectence spectra between 400 and 900nm
     Args arrSpectralX: X values for spectrum, arrSpectralY, Y values for spectrum
@@ -598,20 +600,19 @@ def PeekFinder(arrSpectralX, arrSpectralY):
         if funInterpFunction(i)-funInterpFunction(i-1) > 0.005:#looks to see where the change in the lines trajectory is small enough to be considerd a mode change
             runningpeek = i#moves the value of the detected peek up untill the mode changes
         #Debuging Prints
-        # if i>640 and i<660:
-        #    print("at:", i, " Value:",funInterpFunction(i), " Derivative:", misc.derivative(funInterpFunction, i))
-        # if i>640 and i<660:
-        #     print("at:", i, " Value:",funInterpFunction(i), " Derivative:", misc.derivative(funInterpFunction, i))
-        #     if abs(misc.derivative(funInterpFunction, i))<0.001:
-        #         print("Pass Derivative Threshhold")
-        #     if funInterpFunction(i)>min(arrSmoothedY)*1.1:
-        #         print("Pass Floor")
-        #     if booInflectionTest == True:
-        #         print("Pass Inflection")
-        #     if funInterpFunction(i-1)<funInterpFunction(i):
-        #         print("Pass Turning Low")
-        #     if funInterpFunction(i+1)<funInterpFunction(i):
-        #         print("Pass Turning High")
+        if debug == True:
+            f = open("debug.txt", "w")
+            f.write("at:", i, " Value:",funInterpFunction(i), " Derivative:", misc.derivative(funInterpFunction, i))
+            if abs(misc.derivative(funInterpFunction, i))<0.001:
+                f.write("Pass Derivative Threshhold")
+            if funInterpFunction(i)>min(arrSmoothedY)*1.1:
+                f.write("Pass Floor")
+            if booInflectionTest == True:
+                f.write("Pass Inflection")
+            if funInterpFunction(i-1)<funInterpFunction(i):
+                f.write("Pass Turning Low")
+            if funInterpFunction(i+1)<funInterpFunction(i):
+                f.write("Pass Turning High")
         i=i+1.0
     #check to see if the found peek is close enough to the max reflectivity of the overall spectra to be considerd the leveling off point
     if funInterpFunction(runningpeek) <= max(arrSmoothedY)-0.2 and runningpeek <= 601.0:
