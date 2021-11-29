@@ -532,10 +532,6 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0):
     for filepath in (glob.glob("/content/*.png")):
         shutil.move(filepath, SaveDir)
 
-
-
-
-
 def PeekFinder(arrSpectralX, arrSpectralY):
     """
     Peek finder for FORS reflectence spectra between 400 and 900nm
