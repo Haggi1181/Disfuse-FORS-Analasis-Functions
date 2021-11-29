@@ -608,15 +608,15 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
             savetext = "at:" + str(i) + " Value:" + str(funInterpFunction(i)) + " Derivative:" + str(misc.derivative(funInterpFunction, i)) + "\n"
             f.write(savetext)
             if abs(misc.derivative(funInterpFunction, i))<0.001:
-                f.write("Pass Derivative Threshhold"+ "\n")
+                f.write("   Pass Derivative Threshhold"+ "\n")
             if funInterpFunction(i)>min(arrSmoothedY)*1.1:
-                f.write("Pass Floor"+ "\n")
+                f.write("   Pass Floor"+ "\n")
             if booInflectionTest == True:
-                f.write("Pass Inflection"+ "\n")
+                f.write("   Pass Inflection"+ "\n")
             if funInterpFunction(i-1)<funInterpFunction(i):
-                f.write("Pass Turning Low"+ "\n")
+                f.write("   Pass Turning Low"+ "\n")
             if funInterpFunction(i+1)<funInterpFunction(i):
-                f.write("Pass Turning High"+ "\n")
+                f.write("   Pass Turning High"+ "\n")
         i=i+1.0
     #check to see if the found peek is close enough to the max reflectivity of the overall spectra to be considerd the leveling off point
     if funInterpFunction(runningpeek) <= max(arrSmoothedY)-0.2 and runningpeek <= 601.0:
