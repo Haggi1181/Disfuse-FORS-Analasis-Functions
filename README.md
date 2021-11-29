@@ -97,8 +97,8 @@ importlib.reload(mm)
     - Returns: Array of peek locations
 - PeekFinder
     - Peek finder for FORS reflectence spectra between 400 and 900nm
-    - Args arrSpectralX: X values for spectrum, arrSpectralY, Y values for spectrum
+    - Args arrSpectralX: X values for spectrum, arrSpectralY, Y values for spectrum, debug: saves a txt file with raw wavelength derivative nad pass test data into a text file in the defalt directory called debug.txt
     - Returns: Array of peek locations
 - PeekFinderPlotGenorater
     - Function to genorate plots for all prossesed data found in a directory
-    - Args Dir: Directory containting all data, SaveDir: Location to save plots, Headersize: Number of likes to skip at beggining of reading data
+    - Args Dir: Directory containting all data, SaveDir: Location to save plots, Headersize: Number of likes to at beggining of reading data, debug: Saves raw wavelength derivative and pass test data into a txt file with the plots
