@@ -603,6 +603,8 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
         #less of a peek and more of a change in "trajectory" of line so function below is specialised
         if funInterpFunction(i)-funInterpFunction(i-1) > 0.005:#looks to see where the change in the lines trajectory is small enough to be considerd a mode change
             runningpeek = i#moves the value of the detected peek up untill the mode changes
+            if debug == True:
+                f.write("Running Peek Moved \n")
         #Debuging Prints
         if debug == True:
             savetext = "at:" + str(i) + " Value:" + str(funInterpFunction(i)) + " Derivative:" + str(misc.derivative(funInterpFunction, i)) + "\n"
@@ -622,11 +624,15 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
     if funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2 and runningpeek <= 401.0:
         if debug == True:
             f.write("RunningPeek Not Saved \n")
+            f.write(str(runningpeek <= 401.0) + "/n")
+            f.write(str(funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2) + "/n")
             f.write("RunningPeek Val:" + str(runningpeek))
         pass
     else:
         if debug == True:
             f.write("RunningPeek Saved \n")
+            f.write(str(runningpeek <= 401.0) + "/n")
+            f.write(str(funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2) + "/n"
             f.write("RunningPeek Val:" + str(runningpeek))
         arr0.append(runningpeek)
     return(arr0)
