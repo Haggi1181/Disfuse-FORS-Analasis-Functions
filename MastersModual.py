@@ -624,15 +624,15 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
     if funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2 and runningpeek <= 401.0:
         if debug == True:
             f.write("RunningPeek Not Saved \n")
-            f.write(str(runningpeek <= 401.0) + "/n")
-            f.write(str(funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2) + "/n")
+            f.write(str(runningpeek <= 401.0) + "\n")
+            f.write(str(funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2) + "\n")
             f.write("RunningPeek Val:" + str(runningpeek))
         pass
     else:
         if debug == True:
             f.write("RunningPeek Saved \n")
-            f.write(str(runningpeek <= 401.0) + "/n")
-            f.write(str(funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2) + "/n")
+            f.write(str(runningpeek <= 401.0) + "\n")
+            f.write(str(funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2) + "\n")
             f.write("RunningPeek Val:" + str(runningpeek))
         arr0.append(runningpeek)
     return(arr0)
