@@ -619,7 +619,7 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
                 f.write("   Pass Turning High"+ "\n")
         i=i+1.0
     #check to see if the found peek is close enough to the max reflectivity of the overall spectra to be considerd the leveling off point
-    if funInterpFunction(runningpeek) <= max(arrSmoothedY)-0.2 and runningpeek <= 401.0:
+    if funInterpFunction(runningpeek) >= max(arrSmoothedY)-0.2 and runningpeek <= 401.0:
         if debug == True:
             f.write("RunningPeek Not Saved \n")
             f.write("RunningPeek Val:" + str(runningpeek))
