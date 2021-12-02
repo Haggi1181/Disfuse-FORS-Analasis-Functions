@@ -33,7 +33,11 @@ import shutil
 import sys
 import importlib
 
-#shutil.rmtree("/testing/")#uncomment for second run
+try:
+    shutil.rmtree("/testing/")
+except:
+    pass
+    
 Repo.clone_from("https://github.com/Haggi1181/Disfuse-FORS-Analasis-Functions.git", "/testing/")
 
 sys.path.insert(1, "/testing/")
