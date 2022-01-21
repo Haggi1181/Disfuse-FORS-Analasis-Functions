@@ -446,7 +446,7 @@ def MixingPlotFullGen(fpRaw1, dcRaw1, rfRaw1, fpRaw2, dcRaw2, rfRaw2, fpRawMixed
 
     MixingLinePlotGenorator(Base1, Base2, Mix, Gen, Legend)
 
-def ProssesedDataToPeekDatabase(Dir, SaveDir, Headersize = 0):
+def ProssesedDataToPeekDatabase(Dir, SaveDir, Headersize = 0, debug = False):
     """
     Function to take prossesed data, genorate the values of the detected peeks using PeekFinderTXT and save the results
     Args Dir: Target Directory containing prossesed data, SaveDir: Directory to save data in, Headersize: Number of skip lines at top of files
@@ -462,14 +462,14 @@ def ProssesedDataToPeekDatabase(Dir, SaveDir, Headersize = 0):
     i = 0
     temp = []    
     while i< len(arrFilePaths):
-        temp = PeekFinderTXT(arrFilePaths[i], Headersize)
+        temp = PeekFinderTXT(arrFilePaths[i], Headersize, debug)
         finalpath = SaveDir + "/" + arrFileName[i] + "Peeks" + ".txt"
         sp.savetxt(finalpath, temp)
         i = i+1
         #print("Data Read")
     i = 0
 
-def PeekFinderTXT(DataPath, HeaderSize = 0):
+def PeekFinderTXT(DataPath, HeaderSize = 0, debug = False):
     """
     Peek finder for already processed data
     Args DataPath: Full file path for raw data, HeaderSize: number of lines to skip at top of file
@@ -477,7 +477,7 @@ def PeekFinderTXT(DataPath, HeaderSize = 0):
     """
 
     SpectraX, SpectraY = sp.loadtxt(DataPath, unpack = True, skiprows = HeaderSize)
-    arr0 = PeekFinder(SpectraX, SpectraY)
+    arr0 = PeekFinder(SpectraX, SpectraY, debug)
     return arr0
 
 def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
