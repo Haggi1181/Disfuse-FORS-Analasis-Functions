@@ -86,7 +86,7 @@ def SpectralGenAndSave(RawDataDir, DarkCountDir, ReflectanceStanderdDir, SaveDir
     finalpath = SaveDir + SaveFileName + ".txt"
     sp.savetxt(finalpath, np.column_stack([xRaw, ySpectra]))
 
-def MatchingDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize = 14):
+def SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize = 14):
     """
     Function to genorate a spectral database from spectra found in a single folder saving calculated spectra into one folder
     args: Dir: Directory of data, DarkCountFileName: Full file path for dark count, ReflectenceStandardFileName: Full file path for ref standard, SaveDir: Directory to save in, HeaderSize: Number of lines to ohmit at top of reading files
