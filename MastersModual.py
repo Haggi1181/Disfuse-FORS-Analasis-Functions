@@ -530,7 +530,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
         plt.plot(xMixesData[i], yMixesData[i])
         test = PeekFinder(xMixesData[i], yMixesData[i], debug)
         if debug == True:
-            shutil.move("/content/debug.txt", SaveDir + "/" + names[i])
+            shutil.move("/content/debug.txt", SaveDir + "/" + names[i] + "Debug.txt")
         plt.text(400,0,test)
         plt.xlim(400,900)
         plt.ylim(0,1)
