@@ -24,7 +24,6 @@ gc = gspread.authorize(GoogleCredentials.get_application_default())
 #print("Initialisation Complete")
 
 
-
 def PlotProcessedSpectra(DataFilePath, MatPlotLibColour = None, HeaderSize = 0, Label = None, title = None):
     """
     Fuction to plot a already genorated FORS spectra
@@ -528,7 +527,10 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
         plt.title(names[i])
         plt.xlabel("Wavelength/nm")
         plt.ylabel("Reflectence/%")
-        plt.plot(xMixesData[i], yMixesData[i])
+        try:
+            plt.plot(xMixesData[i], yMixesData[i])
+        except:
+            pass
         test = PeekFinder(xMixesData[i], yMixesData[i], debug)
         if debug == True:
             shutil.move("/content/debug.txt", SaveDir + "/" + names[i])
