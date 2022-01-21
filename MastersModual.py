@@ -83,7 +83,7 @@ def SpectralGenAndSave(RawDataDir, DarkCountDir, ReflectanceStanderdDir, SaveDir
 
     ySpectra = SpectralGen(yRaw, yDark, yRef)
 
-    finalpath = SaveDir + SaveFileName + ".txt"
+    finalpath = SaveDir + "/" + SaveFileName + ".txt"
     sp.savetxt(finalpath, np.column_stack([xRaw, ySpectra]))
 
 def SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize = 14):
@@ -474,7 +474,7 @@ def RawDataToMatchingAlgorithmDatabase(Dir, DarkCountFileName, ReflectenceStanda
     
     
     """
-    
+
     SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize)
     ProssesedDataToPeekDatabase(SaveDir, SaveDir, 0, debug)
 
