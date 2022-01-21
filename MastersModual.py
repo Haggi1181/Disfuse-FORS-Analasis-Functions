@@ -469,6 +469,16 @@ def ProssesedDataToPeekDatabase(Dir, SaveDir, Headersize = 0, debug = False):
         #print("Data Read")
     i = 0
 
+def RawDataToMatchingAlgorithmDatabase(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize = 14, debug = False):
+    """
+    
+    
+    """
+    
+    SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize)
+    ProssesedDataToPeekDatabase(SaveDir, SaveDir, 0, debug)
+
+
 def PeekFinderTXT(DataPath, HeaderSize = 0, debug = False):
     """
     Peek finder for already processed data
