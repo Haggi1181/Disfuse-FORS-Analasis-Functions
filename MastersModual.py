@@ -529,11 +529,11 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
         plt.ylabel("Reflectence/%")
         try:
             plt.plot(xMixesData[i], yMixesData[i])
-        except:
-            pass
         test = PeekFinder(xMixesData[i], yMixesData[i], debug)
         if debug == True:
             shutil.move("/content/debug.txt", SaveDir + "/" + names[i])
+        except:
+            pass
         plt.text(400,0,test)
         plt.xlim(400,900)
         plt.ylim(0,1)
