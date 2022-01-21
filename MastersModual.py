@@ -446,7 +446,7 @@ def MixingPlotFullGen(fpRaw1, dcRaw1, rfRaw1, fpRaw2, dcRaw2, rfRaw2, fpRawMixed
 
     MixingLinePlotGenorator(Base1, Base2, Mix, Gen, Legend)
 
-def ProssesedFolderPeekToTXT(Dir, SaveDir, Headersize = 0):
+def ProssesedDataToPeekDatabase(Dir, SaveDir, Headersize = 0):
     """
     Function to take prossesed data, genorate the values of the detected peeks using PeekFinderTXT and save the results
     Args Dir: Target Directory containing prossesed data, SaveDir: Directory to save data in, Headersize: Number of skip lines at top of files
