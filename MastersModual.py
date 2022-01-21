@@ -515,7 +515,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
     while i < len(arrFilePaths):
         a = 0
         while a < len(xMixesData[i]):
-            yMixesData[i][a] = yMixesData[i][a]/100
+            yMixesData[i][a] = yMixesData[i][a]
             if xMixesData[i][a] < 400 or xMixesData[i][a] > 900:
                 xMixesData[i][a] = 0
                 yMixesData[i][a] = 0
