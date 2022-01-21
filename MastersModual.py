@@ -96,7 +96,7 @@ def SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName,
     Dir = Dir + "/*.txt"
     for filepath in (glob.glob(Dir)):
         arrFilePaths.append(filepath)
-        arrFileName.append(os.path.basename(filepath))
+        arrFileName.append(os.path.splitext(os.path.basename(filepath))[0])
         #print("File Loaded")
 
 
