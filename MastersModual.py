@@ -498,12 +498,12 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
     """
 
     arrFilePaths = []
-
     for filepath in (glob.glob(Dir + "/*Peeks.txt")):
         arrFilePaths.append(filepath)
 
     Peeks = [None]*len(arrFilePaths)
 
+    i=0
     while i< len(arrFilePaths):
         Peeks[i] = sp.loadtxt(arrFilePaths[i], unpack = True)
         i = i+1
