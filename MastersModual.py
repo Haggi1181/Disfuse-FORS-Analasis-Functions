@@ -74,10 +74,10 @@ def SpectralGenAndSave(RawDataDir, DarkCountDir, ReflectanceStanderdDir, SaveDir
     finalpath = SaveDir + "/" + SaveFileName + ".txt"
     sp.savetxt(finalpath, np.column_stack([xRaw, ySpectra]))
 
-def SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize = 14):
+def SpectralDatabaseCreator(Dir, DarkCountFilePathName, ReflectenceStandardFilePathName, SaveDir, HeaderSize = 14):
     """
     Function to genorate a spectral database from spectra found in a single folder saving calculated spectra into one folder
-    args: Dir: Directory of data, DarkCountFileName: Full file path for dark count, ReflectenceStandardFileName: Full file path for ref standard, SaveDir: Directory to save in, HeaderSize: Number of lines to ohmit at top of reading files
+    args: Dir: Directory of data, DarkCountFilePathName: Full file path for dark count, ReflectenceStandardFilePathName: Full file path for ref standard, SaveDir: Directory to save in, HeaderSize: Number of lines to ohmit at top of reading files
     """
     arrFilePaths = []
     arrFileName = []
@@ -90,7 +90,7 @@ def SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName,
 
     i=0
     while i != len(arrFilePaths):
-        if arrFilePaths[i] == DarkCountFileName or arrFilePaths[i] == ReflectenceStandardFileName:
+        if arrFilePaths[i] == DarkCountFilePathName or arrFilePaths[i] == ReflectenceStandardFilePathName:
             arrFilePaths[i] = "asd"
             arrFileName[i] = "asd"
             #print("FileOmmitted")
@@ -105,7 +105,7 @@ def SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName,
 
     i=0
     while i != len(arrFilePaths):
-        SpectralGenAndSave(arrFilePaths[i], DarkCountFileName, ReflectenceStandardFileName, SaveDir, arrFileName[i])
+        SpectralGenAndSave(arrFilePaths[i], DarkCountFilePathName, ReflectenceStandardFilePathName, SaveDir, arrFileName[i])
         i=i+1
 
 
@@ -129,10 +129,10 @@ def SpectralGen(yRawData, yDarkCounts, yReflectanceStanderd):
         ySpectra.append((difference_i/difference2_i))
     return ySpectra
 
-def DiffuseRefelctencePlotFolder(Dir, DarkCountFileName, ReflectenceStandardFileName, MatPlotLibColour=None, HeaderSize = 14):
+def DiffuseRefelctencePlotFolder(Dir, DarkCountFilePathName, ReflectenceStandardFilePathName, MatPlotLibColour=None, HeaderSize = 14):
     """
     Function to plot FORS Spectra between 400 and 900nm, plots all txt files found in a directory skipping the first HeaderSize lines
-    args: Dir: Directory of data, DarkCountFileName: Full file path for dark count, ReflectenceStandardFileName: Full file path for ref standard, MatPlotLibColour: optional colour of plot, HeaderSize: Number of lines to ohmit at top of reading files
+    args: Dir: Directory of data, DarkCountFilePathName: Full file path for dark count, ReflectenceStandardFilePathName: Full file path for ref standard, MatPlotLibColour: optional colour of plot, HeaderSize: Number of lines to ohmit at top of reading files
     """
 
     arrFilePaths = []
@@ -146,7 +146,7 @@ def DiffuseRefelctencePlotFolder(Dir, DarkCountFileName, ReflectenceStandardFile
 
     i=0
     while i != len(arrFilePaths):
-        if arrFilePaths[i] == DarkCountFileName or arrFilePaths[i] == ReflectenceStandardFileName:
+        if arrFilePaths[i] == DarkCountFilePathName or arrFilePaths[i] == ReflectenceStandardFilePathName:
             arrFilePaths[i] = "asd"
             arrFileName[i] = "asd"
             #print("FileOmmitted")
@@ -169,9 +169,9 @@ def DiffuseRefelctencePlotFolder(Dir, DarkCountFileName, ReflectenceStandardFile
         #print("Data Read")
     i = 0
 
-    xDark, yDark = sp.loadtxt(DarkCountFileName, unpack = True, skiprows = HeaderSize)
+    xDark, yDark = sp.loadtxt(DarkCountFilePathName, unpack = True, skiprows = HeaderSize)
 
-    xRef, yRef = sp.loadtxt(ReflectenceStandardFileName, unpack = True, skiprows = HeaderSize)
+    xRef, yRef = sp.loadtxt(ReflectenceStandardFilePathName, unpack = True, skiprows = HeaderSize)
     #print("Ref Dark Load")
     i=0
     while i != len(arrFilePaths):
@@ -188,16 +188,16 @@ def DiffuseRefelctencePlotFolder(Dir, DarkCountFileName, ReflectenceStandardFile
     plt.ylabel("Reflectence")
     plt.legend()
 
-def DiffuseRefelctencePlotTxt(RawFileName, DarkCountFileName, ReflectenceStandardFileName, MatPlotLibColour=None, HeaderSize = 14, Legend = ""):
+def DiffuseRefelctencePlotTxt(RawFileName, DarkCountFilePathName, ReflectenceStandardFilePathName, MatPlotLibColour=None, HeaderSize = 14, Legend = ""):
     """
     Function to plot FORS Spectra between 400 and 900nm, plots all txt files found in a directory skipping the first HeaderSize lines
-    args: RawFileName: Full file path for raw data, DarkCountFileName: Full file path for dark count, ReflectenceStandardFileName: Full file path for ref standard, MatPlotLibColour: optional colour of plot, HeaderSize: Number of lines to ohmit at top of reading files
+    args: RawFileName: Full file path for raw data, DarkCountFilePathName: Full file path for dark count, ReflectenceStandardFilePathName: Full file path for ref standard, MatPlotLibColour: optional colour of plot, HeaderSize: Number of lines to ohmit at top of reading files
     """
     xRaw, yRaw = sp.loadtxt(RawFileName, unpack = True, skiprows = HeaderSize)
 
-    xDark, yDark = sp.loadtxt(DarkCountFileName, unpack = True, skiprows = HeaderSize)
+    xDark, yDark = sp.loadtxt(DarkCountFilePathName, unpack = True, skiprows = HeaderSize)
 
-    xRef, yRef = sp.loadtxt(ReflectenceStandardFileName, unpack = True, skiprows = HeaderSize)
+    xRef, yRef = sp.loadtxt(ReflectenceStandardFilePathName, unpack = True, skiprows = HeaderSize)
     
     ySpectra = SpectralGen(yRaw, yDark, yRef)
     plt.plot(xRaw, ySpectra, label = Legend, c = MatPlotLibColour)
@@ -313,13 +313,13 @@ def ProssesedDataToPeekDatabase(Dir, SaveDir, Headersize = 0, debug = False):
         #print("Data Read")
     i = 0
 
-def RawDataToMatchingAlgorithmDatabase(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize = 14, debug = False):
+def RawDataToMatchingAlgorithmDatabase(Dir, DarkCountFilePathName, ReflectenceStandardFilePathName, SaveDir, HeaderSize = 14, debug = False):
     """
     Function to create a database from a directory of unprossesed fors data, outputs a series of prossesed spectra and assosiated detected peeks
-    args: Dir: Directory of data, DarkCountFileName: Full file path for dark count, ReflectenceStandardFileName: Full file path for ref standard, SaveDir: Directory to save in, HeaderSize: Number of lines to ohmit at top of reading files, debug: causes additional text files containing debug information in the peek detection step to be saved
+    args: Dir: Directory of data, DarkCountFilePathName: Full file path for dark count, ReflectenceStandardFilePathName: Full file path for ref standard, SaveDir: Directory to save in, HeaderSize: Number of lines to ohmit at top of reading files, debug: causes additional text files containing debug information in the peek detection step to be saved
     """
 
-    SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize)
+    SpectralDatabaseCreator(Dir, DarkCountFilePathName, ReflectenceStandardFilePathName, SaveDir, HeaderSize)
     ProssesedDataToPeekDatabase(SaveDir, SaveDir, 0, debug)
 
 def PeekFinderTXT(DataPath, HeaderSize = 0, debug = False):
