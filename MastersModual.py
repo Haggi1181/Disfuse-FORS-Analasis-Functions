@@ -493,8 +493,8 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
 
 def PeekLoading(Dir, Headersize = 0, debug = False):
     """
-    
-    
+    a function to load data from spectral peek files genorated by this modual
+    Args: Dir: Directory of which to read from containing peek files, Headersize: Number of lines to skip at begginging of document, Debug: Adds additional outputs for debugging
     """
 
     arrFilePaths = []
@@ -505,9 +505,13 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
 
     i=0
     while i< len(arrFilePaths):
-        Peeks[i] = sp.loadtxt(arrFilePaths[i], unpack = True)
+        Peeks[i] = sp.loadtxt(arrFilePaths[i], unpack = True, skiprows = Headersize)
         i = i+1
     i = 0
 
-    print(Peeks)
+    if debug == True:
+        print(Peeks)
+
+
+    return(Peeks)
 
