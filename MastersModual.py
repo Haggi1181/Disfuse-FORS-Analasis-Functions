@@ -490,3 +490,24 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
             f.write("RunningPeek Val:" + str(runningpeek))
         arr0.append(runningpeek)
     return(arr0)
+
+def PeekLoading(Dir, Headersize = 0, debug = False):
+    """
+    
+    
+    """
+
+    arrFilePaths = []
+
+    for filepath in (glob.glob(Dir + "/*Peeks.txt")):
+        arrFilePaths.append(filepath)
+
+    Peeks = [None]*len(arrFilePaths)
+
+    while i< len(arrFilePaths):
+        Peeks[i] = sp.loadtxt(arrFilePaths[i], unpack = True)
+        i = i+1
+    i = 0
+
+    print(Peeks)
+
