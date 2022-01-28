@@ -341,6 +341,8 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
     #loading spectral data base
     arrFilePaths = []
 
+    print("OIOI")
+
     for filepath in (glob.glob(Dir + "/*.txt")):
         arrFilePaths.append(filepath)
 
