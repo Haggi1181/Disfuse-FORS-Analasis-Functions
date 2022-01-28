@@ -315,13 +315,12 @@ def ProssesedDataToPeekDatabase(Dir, SaveDir, Headersize = 0, debug = False):
 
 def RawDataToMatchingAlgorithmDatabase(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize = 14, debug = False):
     """
-    
-    
+    Function to create a database from a directory of unprossesed fors data, outputs a series of prossesed spectra and assosiated detected peeks
+    args: Dir: Directory of data, DarkCountFileName: Full file path for dark count, ReflectenceStandardFileName: Full file path for ref standard, SaveDir: Directory to save in, HeaderSize: Number of lines to ohmit at top of reading files, debug: causes additional text files containing debug information in the peek detection step to be saved
     """
 
     SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName, SaveDir, HeaderSize)
     ProssesedDataToPeekDatabase(SaveDir, SaveDir, 0, debug)
-
 
 def PeekFinderTXT(DataPath, HeaderSize = 0, debug = False):
     """
