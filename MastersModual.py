@@ -146,7 +146,7 @@ def DiffuseRefelctencePlot(LegendName, SpreadSheet, DarkCountIndex, ReflectenceS
     xRawData = list(map(float, xt))
     yRawData = list(map(float, yt))
 
-    ySpectra = SpectralGen(yRaw[i], yDark, yRef)
+    ySpectra = SpectralGen(yRawData, yDarkCounts, yReflectanceStanderd)
 
     #Verification Plot
     plt.plot(xRawData, ySpectra, label = LegendName, c = MatPlotLibColour)
