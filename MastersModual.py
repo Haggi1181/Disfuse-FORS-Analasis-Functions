@@ -352,8 +352,8 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
     yMixesData = [None]*len(arrFilePaths)
 
     while i< len(arrFilePaths):
-        xMixesData[i],yMixesData[i] = sp.loadtxt(arrFilePaths[i], unpack = True)
         print(i)
+        xMixesData[i],yMixesData[i] = sp.loadtxt(arrFilePaths[i], unpack = True)
         i = i+1
     i = 0
 
