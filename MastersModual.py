@@ -9,18 +9,6 @@ import os
 import shutil
 import math
 
-
-
-from google.colab import auth
-auth.authenticate_user()
-
-import gspread
-from oauth2client.client import GoogleCredentials
-
-gc = gspread.authorize(GoogleCredentials.get_application_default())
-
-
-
 #print("Initialisation Complete")
 
 
@@ -119,45 +107,6 @@ def SpectralDatabaseCreator(Dir, DarkCountFileName, ReflectenceStandardFileName,
         SpectralGenAndSave(arrFilePaths[i], DarkCountFileName, ReflectenceStandardFileName, SaveDir, arrFileName[i])
         i=i+1
 
-def DiffuseRefelctencePlot(LegendName, SpreadSheet, DarkCountIndex, ReflectenceStandardIndex, DataIndex, MatPlotLibColour=None):
-    """
-    Function to plot FORS Spectra between 400 and 900nm
-    Args LegendName: Name of plot for legend, SpreadSheet: Name of google sheet found in gdrive containg data, DarkCountIndex: page index of dark count data found in spesifide google sheet starting at 0, ReflectenceStandardIndex: page index of reflectence standard data found in spesifide google sheet starting at 0, DataIndex: page index of raw data found in spesifide google sheet starting at 0, MatPlotLibColour: optional colour of plot
-    """
-
-    #Initialising Dark Count Data
-    worksheet = gc.open(SpreadSheet).get_worksheet(DarkCountIndex)
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xDarkCounts = list(map(float, xt))
-    yDarkCounts = list(map(float, yt))
-
-    #Initialising Reflectence Standerd Data
-    worksheet = gc.open(SpreadSheet).get_worksheet(ReflectenceStandardIndex)
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xReflectanceStanderd = list(map(float, xt))
-    yReflectanceStanderd = list(map(float, yt))
-
-    #Initialising Raw Data
-    worksheet = gc.open(SpreadSheet).get_worksheet(DataIndex)
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xRawData = list(map(float, xt))
-    yRawData = list(map(float, yt))
-
-    ySpectra = SpectralGen(yRawData, yDarkCounts, yReflectanceStanderd)
-
-    #Verification Plot
-    plt.plot(xRawData, ySpectra, label = LegendName, c = MatPlotLibColour)
-
-    #plotting
-    plt.ylim(0,1)
-    plt.xlim(400, 900)
-    plt.title("Final Spectras")
-    plt.xlabel("Wavelength / nm")
-    plt.ylabel("Reflectence")
-    plt.legend()
 
 def SpectralGen(yRawData, yDarkCounts, yReflectanceStanderd):
     """
@@ -271,111 +220,6 @@ def GeoMixing(ySpectra1, ySpectra2):
         i = i+1
     return yGeometricMean
 
-def MixingAlgorithm(LegendName, SpreadSheet, DarkCountIndex, ReflectenceStandardIndex, DataIndex, MatPlotLibColour=[None, None, None, None], ModelUsed = "Geo"):
-    """
-    Function to plot 2 FORS Spectra between 400 and 900nm and predict the mixed spectra
-    Args arrays 1by4 in order, first spectra, second spectra, mix spectra, prodicted mixed spectra
-    Args LegendName: Name of plot for legend, SpreadSheet: Name of google sheet found in gdrive containg data, DarkCountIndex: page index of dark count data found in spesifide google sheet starting at 0, ReflectenceStandardIndex: page index of reflectence standard data found in spesifide google sheet starting at 0, DataIndex: page index of raw data found in spesifide google sheet starting at 0, MatPlotLibColour: optional colour of plot, ModelUsed: optional picker for mixing algorithm used (defalt Geo)
-    """
-    strSampleCodes = LegendName
-    strPlotColours = MatPlotLibColour
-    strSheet = SpreadSheet
-    intDarkCountSheet = DarkCountIndex
-    intReflectenceStanderdSheet = ReflectenceStandardIndex
-    intRawDataSheet = DataIndex
-    
-    ###FIRST SPECTRA###
-    #Initialising Dark Count Data
-    worksheet = gc.open(strSheet[0]).get_worksheet(intDarkCountSheet[0])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xDarkCounts = list(map(float, xt))
-    yDarkCounts = list(map(float, yt))
-
-    #Initialising Reflectence Standerd Data
-    worksheet = gc.open(strSheet[0]).get_worksheet(intReflectenceStanderdSheet[0])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xReflectanceStanderd = list(map(float, xt))
-    yReflectanceStanderd = list(map(float, yt))
-
-    #Initialising Raw Data
-    worksheet = gc.open(strSheet[0]).get_worksheet(intRawDataSheet[0])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xRawData = list(map(float, xt))
-    yRawData = list(map(float, yt))
-
-    ySpectra1 = SpectralGen(yRawData, yDarkCounts, yReflectanceStanderd)
-
-
-    ###SECOND SPECTRA###
-    #Initialising Dark Count Data
-    worksheet = gc.open(strSheet[1]).get_worksheet(intDarkCountSheet[1])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xDarkCounts = list(map(float, xt))
-    yDarkCounts = list(map(float, yt))
-
-    #Initialising Reflectence Standerd Data
-    worksheet = gc.open(strSheet[1]).get_worksheet(intReflectenceStanderdSheet[1])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xReflectanceStanderd = list(map(float, xt))
-    yReflectanceStanderd = list(map(float, yt))
-
-    #Initialising Raw Data
-    worksheet = gc.open(strSheet[1]).get_worksheet(intRawDataSheet[1])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xRawData = list(map(float, xt))
-    yRawData = list(map(float, yt))
-
-    ySpectra2 = SpectralGen(yRawData, yDarkCounts, yReflectanceStanderd)
-
-
-    ###MIXED SPECTRA###
-    #Initialising Dark Count Data
-    worksheet = gc.open(strSheet[2]).get_worksheet(intDarkCountSheet[2])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xDarkCounts = list(map(float, xt))
-    yDarkCounts = list(map(float, yt))
-
-    #Initialising Reflectence Standerd Data
-    worksheet = gc.open(strSheet[2]).get_worksheet(intReflectenceStanderdSheet[2])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xReflectanceStanderd = list(map(float, xt))
-    yReflectanceStanderd = list(map(float, yt))
-
-    #Initialising Raw Data
-    worksheet = gc.open(strSheet[2]).get_worksheet(intRawDataSheet[2])
-    rows = worksheet.get_all_values()
-    xt,yt = zip(*rows)
-    xRawData = list(map(float, xt))
-    yRawData = list(map(float, yt))
-
-
-    ySpectraMixed = SpectralGen(yRawData, yDarkCounts, yReflectanceStanderd)
-
-
-    #Runs the selected mixing Algorithm
-    if ModelUsed == "Geo":
-        yMixed = GeoMixing(ySpectra1, ySpectra2)
-    
-    plt.plot(xRawData, ySpectra1, label = strSampleCodes[0], c = strPlotColours[0])
-    plt.plot(xRawData, ySpectra2, label = strSampleCodes[1], c = strPlotColours[1])
-    plt.plot(xRawData, ySpectraMixed, label = strSampleCodes[2], c = strPlotColours[2])
-    plt.plot(xRawData, yMixed, label = strSampleCodes[3], c = strPlotColours[3])
-
-
-    plt.ylim(0,1)
-    plt.xlim(400, 900)
-    plt.title("Final Spectras")
-    plt.xlabel("Wavelength / nm")
-    plt.ylabel("Reflectence")
-    plt.legend()
 
 def MixingFromSpectraSaveing(SpectraFilePath1, SpectraFilePath2, SaveDir, ModelUsed = "Geo", HeaderSize = 0):
     """
