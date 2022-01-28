@@ -495,9 +495,8 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
     """
     a function to load data from spectral peek files genorated by this modual
     Args: Dir: Directory of which to read from containing peek files, Headersize: Number of lines to skip at begginging of document, Debug: Adds additional outputs for debugging
+    Returns: Array of peeks
     """
-
-    arrFilePaths = []
     for filepath in (glob.glob(Dir + "/*Peeks.txt")):
         arrFilePaths.append(filepath)
 
@@ -514,4 +513,11 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
 
 
     return(Peeks)
+
+
+def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
+    peeks = PeekLoading(PeekDir)
+    UnknownPeeks = PeekFinderTXT(PathUnknownSpectra)
+
+    
 
