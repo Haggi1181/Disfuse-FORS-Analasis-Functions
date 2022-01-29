@@ -529,7 +529,7 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
 
     i = 0
     while i != len(peeks):
-        peeks[i] = peeks[i].sort()
+        peeks[i] = sorted(peeks[i])
         i = i + 1
     i = 0
 
