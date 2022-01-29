@@ -560,6 +560,8 @@ def absolute(m1,m2):
     while i != m1len:
         while j != m2len:
             vals[i][j] = ((m1[i]^2)-(m2[j]^2))^(1/2)
+            j = j + 1
+        i = i + 1
 
     return(vals)
 
