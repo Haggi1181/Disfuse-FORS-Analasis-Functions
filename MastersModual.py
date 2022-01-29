@@ -523,6 +523,7 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
     if debug == True:
         print(peeks)
         print(UnknownPeeks)
+        print(type(peeks))
         print(len(peeks))
         print(peeks.size)
 
