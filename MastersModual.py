@@ -526,7 +526,7 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
         print(type(peeks))
         print(len(peeks))
         #print(len(peeks[0]))
-        print(len(peeks[1]))
+        #print(len(peeks[1]))
         #print(len(peeks[2]))
 
 
@@ -546,10 +546,17 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
 def sortRowWise(m):
      
     # loop for rows of matrix
-    for i in range(len(m)):
-         
+    try:
+        temp1 = len(m)
+    except:
+        temp1 = 1
+    for i in range(temp1):
+        try:
+            temp2 = len(m[i])
+        except:
+            temp2 = 1
         # loop for column of matrix
-        for j in range(len(m[i])):
+        for j in range(temp2):
              
             # loop for comparison and swapping
             for k in range(len(m[i]) - j - 1):
