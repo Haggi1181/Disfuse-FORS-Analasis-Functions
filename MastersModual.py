@@ -559,7 +559,7 @@ def sortRowWise(m):
         for j in range(temp2):
              
             # loop for comparison and swapping
-            for k in range(len(m[i]) - j - 1):
+            for k in range(temp2 - j - 1):
                  
                 if (m[i][k] > m[i][k + 1]):
                      
