@@ -524,7 +524,7 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
         print(peeks)
         print(UnknownPeeks)
         print(len(peeks))
-        print(peeks.shape())
+        print(peeks.shape)
 
 
     i = 0
