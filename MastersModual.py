@@ -516,9 +516,14 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
     return(Peeks)
 
 
-def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
+def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
     peeks = PeekLoading(PeekDir)
     UnknownPeeks = PeekFinderTXT(PathUnknownSpectra)
+
+    if debug == True:
+        print(peeks)
+        print(UnknownPeeks)
+
 
     i = 0
     while i != len(peeks):
@@ -526,9 +531,11 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
         i = i + 1
     i = 0
 
+
     UnknownPeeks = UnknownPeeks.sort()
 
     dist = np.abs(UnknownPeeks[:, np.newaxis] - peeks[0])
 
-    print(dist)
+    if debug == True:
+        print(dist)
 
