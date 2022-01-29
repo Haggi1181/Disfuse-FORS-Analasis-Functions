@@ -553,6 +553,8 @@ def absolute(m1,m2):
     vals = np.zeros((m1len, m2len))
     #vals = [[None]*m1len,[None]*m2len]
 
+    print(vals)
+
     i=0
     j=0
     while i != m1len:
