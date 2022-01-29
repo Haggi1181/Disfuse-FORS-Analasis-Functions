@@ -539,8 +539,6 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
 
 def absolute(m1,m2):
 
-    vals = [[],[]]
-
     try:
         m1len = len(m1)
     except:
@@ -551,6 +549,7 @@ def absolute(m1,m2):
     except:
         m2len = 1
 
+    vals = [[None]*m1len,[None]*m2len]
 
     i=0
     j=0
