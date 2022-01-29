@@ -519,30 +519,38 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
 def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
     peeks = PeekLoading(PeekDir)
     UnknownPeeks = PeekFinderTXT(PathUnknownSpectra)
+    peeks = sortRowWise(peeks)
+    UnknownPeeks = UnknownPeeks.sort()
 
     if debug == True:
         print(peeks)
         print(UnknownPeeks)
         print(type(peeks))
         print(len(peeks))
-        #print(len(peeks[0]))
-        #print(len(peeks[1]))
-        #print(len(peeks[2]))
+        print(peeks)
 
 
-
-    peeks = sortRowWise(peeks)
-
-    print(peeks)
-
-
-    UnknownPeeks = UnknownPeeks.sort()
-
-    dist = np.abs(UnknownPeeks[:, np.newaxis] - peeks[0])
+    dist = absolute(peeks[0], peeks[1])
+    
 
     if debug == True:
         print(dist)
 
+
+def absolute(m1,m2):
+
+    vals = [[],[]]
+
+    m1len = len(m1)
+    m2len = len(m2)
+
+    i=0
+    j=0
+    while i != m1len:
+        while j != m2len:
+            vals[i][j] = ((m1[i]^2)-(m2[j]^2))^(1/2)
+
+    return(vals)
 
 
 def sortRowWise(m):
