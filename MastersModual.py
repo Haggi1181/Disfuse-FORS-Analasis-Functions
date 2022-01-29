@@ -568,8 +568,4 @@ def sortRowWise(m):
                     m[i][k] = m[i][k + 1]
                     m[i][k + 1] = t
                      
-    # printing the sorted matrix
-    for i in range(len(m)):
-        for j in range(len(m[i])):
-            print(m[i][j], end=" ")
-        print()
+    return m
