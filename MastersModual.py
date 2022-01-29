@@ -531,7 +531,9 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
 
 
 
-    sortRowWise(peeks)
+    peeks = sortRowWise(peeks)
+
+    print(peeks)
 
 
     UnknownPeeks = UnknownPeeks.sort()
