@@ -541,8 +541,16 @@ def absolute(m1,m2):
 
     vals = [[],[]]
 
-    m1len = len(m1)
-    m2len = len(m2)
+    try:
+        m1len = len(m1)
+    except:
+        m1len = 1
+
+    try:
+        m2len = len(m2)
+    except:
+        m2len = 1
+
 
     i=0
     j=0
