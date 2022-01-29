@@ -544,10 +544,10 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
 def sortRowWise(m):
      
     # loop for rows of matrix
-    for i in range(len(list(m))):
+    for i in range(len(m)):
          
         # loop for column of matrix
-        for j in range(len(list(m[i]))):
+        for j in range(len(m[i])):
              
             # loop for comparison and swapping
             for k in range(len(m[i]) - j - 1):
