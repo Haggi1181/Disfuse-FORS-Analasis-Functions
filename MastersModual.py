@@ -408,9 +408,9 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
 
 
     #Smoothes input array
-    #objSmoothed = sp.interpolate.splrep(arrSpectralX, arrSpectralY, s=0.001)
-    #arrSmoothedY = sp.interpolate.splev(arrSpectralX,objSmoothed)
-    funInterpFunction = sp.interpolate.interp1d(arrSpectralX, arrSpectralY, fill_value= "extrapolate")
+    objSmoothed = sp.interpolate.splrep(arrSpectralX, arrSpectralY, s=0.001)
+    arrSmoothedY = sp.interpolate.splev(arrSpectralX,objSmoothed)
+    funInterpFunction = sp.interpolate.interp1d(arrSpectralX, arrSmoothedY, fill_value= "extrapolate")
 
     arrSpectralX = sp.linspace(200, 1000, 400)
     arrSmoothedY = funInterpFunction(arrSpectralX)
@@ -506,7 +506,7 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
 
     i=0
     while i< len(arrFilePaths):
-        Peeks[i] = sp.loadtxt(arrFilePaths[i], unpack = True, skiprows = Headersize)
+        Peeks[i] = sp.loadtxt(arrFilePaths[i], skiprows = Headersize)
         i = i+1
     i = 0
 
@@ -519,47 +519,50 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
 def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
     peeks = PeekLoading(PeekDir)
     UnknownPeeks = PeekFinderTXT(PathUnknownSpectra)
-    peeks = sortRowWise(peeks)
-    UnknownPeeks = UnknownPeeks.sort()
+    #peeks = sortRowWise(peeks)
+    #UnknownPeeks = UnknownPeeks.sort()
+
+    peeksl = peeks[0].tolist()
+
+    PeeksList = list()
+    for row in peeks:
+        PeeksList.append(np.atleast_1d(row).tolist())
 
     if debug == True:
-        print(peeks)
-        print(UnknownPeeks)
-        print(type(peeks))
-        print(len(peeks))
-        print(peeks)
+        print("Peeks",peeks)
+        print("UnknownPeeks",UnknownPeeks)
+        print("typePeeks",type(peeks))
+        print("typePeeks0",type(peeks[0]))
+        print("typePeeksList",type(peeksl))
+        print("lenPeeks",len(peeks))
+        print("peeks",peeks)
+        print("PeeksList", PeeksList)
+        print("typePeeksList", type(PeeksList))
+        print("typePeeksList0", type(PeeksList[0]))
+        print("typePeeksList1", type(PeeksList[1]))
 
 
-    dist = absolute(peeks[0], peeks[1])
+    dist = absolute(PeeksList[0], PeeksList[1])
     
-
     if debug == True:
         print(dist)
 
 
 def absolute(m1,m2):
 
-    try:
-        m1len = len(m1)
-    except:
-        m1len = 1
+    m1len = len(m1)
 
-    try:
-        m2len = len(m2)
-    except:
-        m2len = 1
+    m2len = len(m2)
 
 
     vals = np.zeros((m1len, m2len))
     #vals = [[None]*m1len,[None]*m2len]
 
-    print(vals)
-
     i=0
     j=0
     while i != m1len:
         while j != m2len:
-            vals[i][j] = ((m1[i]^2)-(m2[j]^2))^(1/2)
+            vals[i][j] = ((m1[i]-m2[j])**2)**(1/2)
             j = j + 1
         i = i + 1
 
@@ -569,15 +572,11 @@ def absolute(m1,m2):
 def sortRowWise(m):
      
     # loop for rows of matrix
-    try:
-        temp1 = len(m)
-    except:
-        temp1 = 1
+    temp1 = len(m)
     for i in range(temp1):
-        try:
-            temp2 = len(m[i])
-        except:
-            temp2 = 1
+        print(type(m))
+        print(type(m[i]))
+        temp2 = len(m[i])
         # loop for column of matrix
         for j in range(temp2):
              
