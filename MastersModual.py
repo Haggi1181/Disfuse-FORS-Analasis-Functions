@@ -564,6 +564,7 @@ def absolute(m1,m2):
         while j != m2len:
             vals[i][j] = ((m1[i]-m2[j])**2)**(1/2)
             j = j + 1
+        j=0
         i = i + 1
 
     return(vals)
