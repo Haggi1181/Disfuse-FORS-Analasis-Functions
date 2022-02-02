@@ -9,6 +9,7 @@ import os
 import shutil
 import math
 
+RunningLocation = os.path.abspath('')
 
 #print("Initialisation Complete")
 
@@ -375,7 +376,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
         plt.plot(xMixesData[i], yMixesData[i])
         test = PeekFinder(xMixesData[i], yMixesData[i], debug)
         if debug == True:
-            shutil.move("/content/debug.txt", SaveDir + "/" + names[i] + "Debug.txt")
+            shutil.move(RunningLocation+"/debug.txt", SaveDir + "/" + names[i] + "Debug.txt")
         plt.text(400,0,test)
         plt.xlim(400,900)
         plt.ylim(0,1)
@@ -385,7 +386,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
         i = i + 1
     i = 0
 
-    for filepath in (glob.glob("/content/*.png")):
+    for filepath in (glob.glob(RunningLocation+"/*.png")):
         shutil.move(filepath, SaveDir)
 
 def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
