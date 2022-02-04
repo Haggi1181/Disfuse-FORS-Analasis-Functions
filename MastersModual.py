@@ -1,3 +1,4 @@
+from turtle import distance
 import scipy as sp
 import numpy as np
 from scipy import interpolate
@@ -560,31 +561,92 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
         print("typePeeksList0", type(PeeksList[0]))
         print("typePeeksList1", type(PeeksList[1]))
 
+    distance = list()
+    i=0
+    while i != len(PeeksList):
+        dist = absolute(PeeksList[0], PeeksList[i], debug=debug)
+        distance.append(dist)
+        i = i + 1
 
-    dist = absolute(PeeksList[0], PeeksList[1])
     
     if debug == True:
-        print(dist)
+        print("len of dist: ",len(distance))
+        print("len of dist [0]: ",len(distance[0]))
+        print("len of dist [0][0]: ",len(distance[0][0]))
+        print("dist: ",distance)
+        print("dist [0]: ",distance[0])
+        print("dist [0][0]: ",distance[0][0])
+        print("dist [0][0][0]: ",distance[0][0][0])
+
+    templine = list()
+    MinMatrix = list()
+    i=0
+    while i != len(distance):
+        if debug == True:
+            print("MatrixLoop i: ", i)
+        j=0
+        while j != len(distance[i]):
+            if debug == True:
+                print("MatrixLoop j: ", j)
+                print("Dist[i][j]: ", distance[i][j])
+                print("Dist Min[i][j]: ",min(distance[i][j]))
+            templine.append(min(distance[i][j]))
+            if debug == True:
+                print("Temp Line: ", templine)
+            j=j+1
+        MinMatrix.append(templine)
+        templine = []
+        if debug == True:
+            print("MinMatrix: ", MinMatrix)
+        i=i+1
+    if debug == True:
+        print(MinMatrix)
+
+    MinMatrixSum = list()
+    i=0
+    while i != len(MinMatrix):
+        MinMatrixSum.append(sum(MinMatrix[i]))
+        i = i + 1
+    if debug == True:
+        print(MinMatrixSum)
+
+    results = (np.atleast_1d(sp.argsort(MinMatrixSum)).tolist())
+
+    names = [os.path.basename(x) for x in glob.glob(PeekDir + "/*Peeks.txt")]
+
+    if debug == True:
+        print("Results: ", results)
+        print("Names: ", names)
+    i=0
+    while i != len(results):
+        print((names[results[i]]).replace("Peeks", ""))
+        i = i + 1
 
 
-def absolute(m1,m2):
+def absolute(m1,m2, debug = False):
+
 
     m1len = len(m1)
 
     m2len = len(m2)
 
-    print(m1len)
-    print(m2len)
 
-    vals = np.zeros((m1len, m2len))
+    if debug == True:
+        print("absolute length of m1: ",m1len)
+        print("absolute length of m2: ",m2len)
+
+    val = np.zeros((m1len, m2len))
+    vals = val.tolist()
     #vals = [[None]*m1len,[None]*m2len]
 
     i=0
     j=0
     while i != m1len:
-        print(i)
+        if debug == True:
+            print("Absolute Loop i: ",i)
         while j != m2len:
-            print(j)
+            if debug == True:
+                print("Absolute Loop j: ",j)
             vals[i][j] = ((m1[i]-m2[j])**2)**(1/2)
             j = j + 1
         j=0
