@@ -310,6 +310,8 @@ def ProssesedDataToPeekDatabase(Dir, SaveDir, Headersize = 0, debug = False):
         temp = PeekFinderTXT(arrFilePaths[i], Headersize, debug)
         finalpath = SaveDir + "/" + arrFileName[i] + "Peeks" + ".txt"
         sp.savetxt(finalpath, temp)
+        if debug == True:
+            shutil.move(RunningLocation+"/debug.txt", SaveDir + "/" + arrFileName[i] + "Debug.txt")
         i = i+1
         #print("Data Read")
     i = 0
@@ -331,6 +333,21 @@ def PeekFinderTXT(DataPath, HeaderSize = 0, debug = False):
     """
 
     SpectraX, SpectraY = sp.loadtxt(DataPath, unpack = True, skiprows = HeaderSize)
+
+    a = 0
+    while a < len(SpectraX):
+        if SpectraX[a] < 400 or SpectraX[a] > 900:
+            SpectraX[a] = 0
+            SpectraY[a] = 0
+        a = a + 1
+    tempx = filter(lambda c: c != 0, SpectraX)
+    SpectraX = list(tempx)
+    tempy = filter(lambda c: c != 0, SpectraY)
+    SpectraY = list(tempy)
+
+
+
+
     arr0 = PeekFinder(SpectraX, SpectraY, debug)
     return arr0
 
@@ -353,6 +370,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
     xMixesData = [None]*len(arrFilePaths)
     yMixesData = [None]*len(arrFilePaths)
 
+
     while i< len(arrFilePaths):
         xMixesData[i],yMixesData[i] = sp.loadtxt(arrFilePaths[i], unpack = True)
         i = i+1
@@ -361,7 +379,6 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
     while i < len(arrFilePaths):
         a = 0
         while a < len(xMixesData[i]):
-            yMixesData[i][a] = yMixesData[i][a]
             if xMixesData[i][a] < 400 or xMixesData[i][a] > 900:
                 xMixesData[i][a] = 0
                 yMixesData[i][a] = 0
@@ -464,6 +481,8 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
         if debug == True:
             savetext = "at:" + str(i) + " Value:" + str(funInterpFunction(i)) + " Derivative:" + str(misc.derivative(funInterpFunction, i)) + "\n"
             f.write(savetext)
+            if abs(misc.derivative(funInterpFunction, i))<0.001 and funInterpFunction(i)>min(arrSmoothedY)*1.1 and booInflectionTest == True and funInterpFunction(i-1)<funInterpFunction(i) and funInterpFunction(i+1)<funInterpFunction(i):
+                f.write("____________________PeekDectected____________________"+ "\n")
             if abs(misc.derivative(funInterpFunction, i))<0.001:
                 f.write("   Pass Derivative Threshhold"+ "\n")
             if funInterpFunction(i)>min(arrSmoothedY)*1.1:
@@ -523,18 +542,17 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
     #peeks = sortRowWise(peeks)
     #UnknownPeeks = UnknownPeeks.sort()
 
-    peeksl = peeks[0].tolist()
-
     PeeksList = list()
     for row in peeks:
         PeeksList.append(np.atleast_1d(row).tolist())
+
+    PeeksList = sortRowWise(PeeksList)
 
     if debug == True:
         print("Peeks",peeks)
         print("UnknownPeeks",UnknownPeeks)
         print("typePeeks",type(peeks))
         print("typePeeks0",type(peeks[0]))
-        print("typePeeksList",type(peeksl))
         print("lenPeeks",len(peeks))
         print("peeks",peeks)
         print("PeeksList", PeeksList)
@@ -555,6 +573,8 @@ def absolute(m1,m2):
 
     m2len = len(m2)
 
+    print(m1len)
+    print(m2len)
 
     vals = np.zeros((m1len, m2len))
     #vals = [[None]*m1len,[None]*m2len]
@@ -562,7 +582,9 @@ def absolute(m1,m2):
     i=0
     j=0
     while i != m1len:
+        print(i)
         while j != m2len:
+            print(j)
             vals[i][j] = ((m1[i]-m2[j])**2)**(1/2)
             j = j + 1
         j=0
