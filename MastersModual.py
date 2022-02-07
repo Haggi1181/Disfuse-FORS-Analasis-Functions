@@ -523,6 +523,9 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
     for filepath in (glob.glob(Dir + "/*Peeks.txt")):
         arrFilePaths.append(filepath)
 
+    if debug == True:
+        print("File Path Names: ",arrFilePaths)
+
     Peeks = [None]*len(arrFilePaths)
 
     i=0
@@ -531,15 +534,13 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
         i = i+1
     i = 0
 
-    if debug == True:
-        print(Peeks)
 
     return(Peeks)
 
 
-def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
+def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
     peeks = PeekLoading(PeekDir)
-    UnknownPeeks = PeekFinderTXT(PathUnknownSpectra)
+    UnknownPeeks = PeekFinderTXT(PathUnknownSpectra, debug = debug)
     #peeks = sortRowWise(peeks)
     #UnknownPeeks = UnknownPeeks.sort()
 
@@ -547,7 +548,7 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
     for row in peeks:
         PeeksList.append(np.atleast_1d(row).tolist())
 
-    PeeksList = sortRowWise(PeeksList)
+    #PeeksList = sortRowWise(PeeksList)
 
     if debug == True:
         print("Peeks",peeks)
@@ -564,7 +565,7 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
     distance = list()
     i=0
     while i != len(PeeksList):
-        dist = absolute(PeeksList[0], PeeksList[i], debug=debug)
+        dist = absolute(UnknownPeeks, PeeksList[i], debug=debug)
         distance.append(dist)
         i = i + 1
 
@@ -618,8 +619,10 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = True):
         print("Results: ", results)
         print("Names: ", names)
     i=0
+
+    print("Results from least to most likely")
     while i != len(results):
-        print((names[results[i]]).replace("Peeks", ""))
+        print("Result:",i+1," ",(names[results[i]]).replace("Peeks", ""))
         i = i + 1
 
 
@@ -643,10 +646,10 @@ def absolute(m1,m2, debug = False):
     j=0
     while i != m1len:
         if debug == True:
-            print("Absolute Loop i: ",i)
+            print("Absolute Loop i: ",i, " Element: ", m1[i])
         while j != m2len:
             if debug == True:
-                print("Absolute Loop j: ",j)
+                print("Absolute Loop j: ",j, " Element: ", m2[j])
             vals[i][j] = ((m1[i]-m2[j])**2)**(1/2)
             j = j + 1
         j=0
@@ -677,3 +680,28 @@ def sortRowWise(m):
                     m[i][k + 1] = t
                      
     return m
+
+def PersentageToFractionalTXT(Dir, SaveDir):
+    """
+    Function to take persentage y values to fractional (/100) for already prossesed fors data for all txt files in a given folder
+    args Dir: Directory containing input files, SaveDir: Directory to save to
+    """
+    arrFilePaths = []
+    arrFileName=[]
+    
+    for filepath in (glob.glob(Dir + "/*.txt")):
+        arrFilePaths.append(filepath)
+        arrFileName.append(os.path.basename(filepath))
+
+
+    xMixesData = [None]*len(arrFilePaths)
+    yMixesData = [None]*len(arrFilePaths)
+
+    i=0
+    while i< len(arrFilePaths):
+        xMixesData,yMixesData = sp.loadtxt(arrFilePaths[i], unpack = True)
+        yMixesData = yMixesData/100
+        finalpath = SaveDir + "/" + arrFileName[i]
+        sp.savetxt(finalpath, np.column_stack([xMixesData, yMixesData]))
+        i = i+1
+
