@@ -538,7 +538,7 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
     return(Peeks)
 
 
-def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
+def MatchingAlgorithm(PeekDir, PathUnknownSpectra, debug = False):
     """
     
     
