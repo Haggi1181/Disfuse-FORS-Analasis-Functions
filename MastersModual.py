@@ -539,10 +539,17 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
 
 
 def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
+    """
+    
+    
+    """
     peeks = PeekLoading(PeekDir)
     UnknownPeeks = PeekFinderTXT(PathUnknownSpectra, debug = debug)
     #peeks = sortRowWise(peeks)
     #UnknownPeeks = UnknownPeeks.sort()
+
+    names = [os.path.basename(x) for x in glob.glob(PeekDir + "/*Peeks.txt")]
+
 
     PeeksList = list()
     for row in peeks:
@@ -562,13 +569,35 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
         print("typePeeksList0", type(PeeksList[0]))
         print("typePeeksList1", type(PeeksList[1]))
 
+
+
     distance = list()
     i=0
+    removallist = list()
+
     while i != len(PeeksList):
         dist = absolute(UnknownPeeks, PeeksList[i], debug=debug)
-        distance.append(dist)
+        if len(dist[0]) == 0:
+            removallist.append(i)
+        else:
+            distance.append(dist)
         i = i + 1
+    i = 0
 
+    if debug == True:
+        print("Remval List Indexes: ", removallist)
+        print("Pre Removal Results: ", PeeksList)
+        print("Pre Removal Names: ", names)
+
+
+    PeeksList = [v for i, v in enumerate(PeeksList) if i not in removallist]
+    names = [v for i, v in enumerate(names) if i not in removallist]
+
+    if debug == True:
+        print("Post RemovalResults: ", PeeksList)
+        print("Post RemovalNames: ", names)
+
+    i = 0
     
     if debug == True:
         print("len of dist: ",len(distance))
@@ -613,11 +642,9 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
 
     results = (np.atleast_1d(sp.argsort(MinMatrixSum)).tolist())
 
-    names = [os.path.basename(x) for x in glob.glob(PeekDir + "/*Peeks.txt")]
 
     if debug == True:
         print("Results: ", results)
-        print("Names: ", names)
     i=0
 
     print("Results from least to most likely")
@@ -627,7 +654,10 @@ def MatchingAlgorithmNoMix(PeekDir, PathUnknownSpectra, debug = False):
 
 
 def absolute(m1,m2, debug = False):
+    """
 
+    
+    """
 
     m1len = len(m1)
 
