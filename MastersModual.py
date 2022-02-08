@@ -515,7 +515,7 @@ def PeekFinder(arrSpectralX, arrSpectralY, debug = False):
 def PeekLoading(Dir, Headersize = 0, debug = False):
     """
     a function to load data from spectral peek files genorated by this modual
-    Args: Dir: Directory of which to read from containing peek files, Headersize: Number of lines to skip at begginging of document, Debug: Adds additional outputs for debugging
+    Args Dir: Directory of which to read from containing peek files, Headersize: Number of lines to skip at begginging of document, debug: Adds additional outputs for debugging
     Returns: Array of peeks
     """
     
@@ -540,8 +540,8 @@ def PeekLoading(Dir, Headersize = 0, debug = False):
 
 def MatchingAlgorithm(PeekDir, PathUnknownSpectra, debug = False):
     """
-    
-    
+    Function to match a unknonw spectra to a known one from a database via a peek matching method
+    Args PeekDir: Directory containing peek data, PathUnknownSpectra: File path of the pre prossesed spectra of unknonw pigment, debug: flag in function to print additional debugging information
     """
     peeks = PeekLoading(PeekDir)
     UnknownPeeks = PeekFinderTXT(PathUnknownSpectra, debug = debug)
@@ -655,8 +655,9 @@ def MatchingAlgorithm(PeekDir, PathUnknownSpectra, debug = False):
 
 def absolute(m1,m2, debug = False):
     """
-
-    
+    function to create a array of all absolute values between elements inside of 2 given arrays
+    args m1: 1d first array, m2: 1d second array, debug: flag to print aditional information for debugging information
+    return: 2d array of the differences between all elements of m1 and m2
     """
 
     m1len = len(m1)
