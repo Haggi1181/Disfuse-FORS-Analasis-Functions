@@ -646,9 +646,9 @@ def MatchingAlgorithm(PeekDir, PathUnknownSpectra, debug = False):
         print("Results: ", results)
     i=0
 
-    print("Results from least to most likely")
+    print("Results from most to least likely, for confidence closer to 0 is better:")
     while i != len(results):
-        print("Result:",i+1," ",(names[results[i]]).replace("Peeks", ""))
+        print("Result:",i+1," ",(names[results[i]]).replace("Peeks", ""), " Confidence: ", MinMatrixSum[results[i]])
         i = i + 1
 
 
