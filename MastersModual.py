@@ -4,7 +4,6 @@ from scipy import interpolate
 import matplotlib.pyplot as plt
 import glob
 from scipy import misc
-from scipy import signal
 import os
 import shutil
 import math
