@@ -1,6 +1,8 @@
+import matplotlib
 import scipy as sp
 import numpy as np
 from scipy import interpolate
+from scipy import misc
 import matplotlib.pyplot as plt
 import glob
 from scipy import misc
@@ -19,7 +21,7 @@ def PlotProcessedSpectra(DataFilePath, MatPlotLibColour = None, HeaderSize = 0, 
     Args DataFilePath: File to plot, MatPlotLibColour: Colour for Mat Plot Lib plotts, HeaderSize: Number of lines to skip for header, title: lable at top of graph
     """
     xRaw,yRaw = sp.loadtxt(DataFilePath, unpack = True, skiprows = HeaderSize)
-    plt.plot(xRaw, yRaw, Label = Label, c = MatPlotLibColour)
+    plt.plot(xRaw, yRaw, c = MatPlotLibColour)
 
     #plotting
     plt.ylim(0,1)
@@ -733,4 +735,152 @@ def PersentageToFractionalTXT(Dir, SaveDir):
         finalpath = SaveDir + "/" + arrFileName[i]
         sp.savetxt(finalpath, np.column_stack([xMixesData, yMixesData]))
         i = i+1
+
+
+def LineMatchingAlgorithm(SpectraDir, PathUnknownSpectra, debug = False, HeaderSize = 0):
+    """
+    Function to match a unknonw spectra to a known one from a database via a peek matching method
+    Args PeekDir: Directory containing peek data, PathUnknownSpectra: File path of the pre prossesed spectra of unknonw pigment, debug: flag in function to print additional debugging information
+    """
+    
+    arrFilePaths = []
+    arrFileName = []
+
+    SpectraDir = SpectraDir + "/*.txt"
+    for filepath in (glob.glob(SpectraDir)):
+        arrFilePaths.append(filepath)
+        arrFileName.append(os.path.basename(filepath))
+        #print("File Loaded")
+    i = 0
+    xRaw = [None]*len(arrFilePaths)
+    yRaw = [None]*len(arrFilePaths)
+    while i< len(arrFilePaths):
+        xRaw[i],yRaw[i] = sp.loadtxt(arrFilePaths[i], unpack = True, skiprows = HeaderSize)
+        i = i+1
+
+    xUnknown,yUnknown = sp.loadtxt(PathUnknownSpectra, unpack = True, skiprows = HeaderSize)
+
+    ydivlines = [None]*len(arrFilePaths)
+    i=0
+    while i< len(arrFilePaths):
+        ydivlines[i] = LineDivider(yRaw[i], yUnknown)
+        i = i + 1
+
+    sx = [None]*len(arrFilePaths)
+    sy = [None]*len(arrFilePaths)
+
+    i=0
+    while i< len(arrFilePaths):
+        sx[i], sy[i] = smoother(xRaw[i], ydivlines[i])
+        #plt.plot(sx[i], sy[i])
+        i = i + 1
+
+    derivatives = [None]*len(arrFilePaths)
+
+
+    i=0
+    while i< len(arrFilePaths):
+        derivatives[i] = netabsderivative(sx[i], sy[i])
+        #print(derivatives[i])
+        i = i + 1
+    i=0
+
+    results = sp.argsort(derivatives)
+    #print(results)
+
+
+    names = [os.path.basename(x) for x in glob.glob(SpectraDir)]
+    #print(names)
+
+    while i != len(results):
+        print("Result:",i+1," ",(names[results[i]]), " Confidence: ", derivatives[results[i]])
+        i = i + 1
+
+
+
+def netabsderivative(x,y):
+    """
+    
+    
+    """
+    # funInterpFunction = sp.interpolate.interp1d(x, y, fill_value= "extrapolate")
+
+    # der = sp.misc.derivative(funInterpFunction)
+
+    dx = x[1] - x[0]
+    der = np.gradient(y, dx)
+
+    test = np.sum([abs(a) for a in der])
+
+    plt.plot(x,der)
+
+    return test
+
+
+def smoother(x,y):
+    """
+
+
+    """
+    #trims out nul values, a value that may be genorated by extreamly small floats, fixes issues with splev
+    # print(x)
+    # print(y)
+    a = 0
+    while a != len(x):
+        if math.isnan(x[a])==True:
+            x[a] = -10000
+            y[a] = -10000
+        a = a + 1
+    tempx = filter(lambda c: c != -10000, x)
+    x = list(tempx)
+    tempy = filter(lambda c: c != -10000, y)
+    y = list(tempy)
+
+    # print(x)
+    # print(y)
+    a = 0
+    while a < len(y):
+        if x[a] < 400 or x[a] > 900:
+            y[a] = -10000
+            x[a] = -10000
+        a = a + 1
+    tempx = filter(lambda c: c != -10000, x)
+    x = list(tempx)
+    tempy = filter(lambda c: c != -10000, y)
+    y = list(tempy)
+
+    #print(x)
+    #print(y)
+
+    funInterpFunction = sp.interpolate.interp1d(x, y, fill_value= "extrapolate")
+
+
+    x = sp.linspace(400, 900, 500)
+    y = funInterpFunction(x)
+
+    #Smoothes input array
+    objSmoothed = sp.interpolate.splrep(x, y, s=0.001)
+    sy = sp.interpolate.splev(x,objSmoothed)
+    
+    funInterpFunction = sp.interpolate.interp1d(x, sy, fill_value= "extrapolate")
+
+    fx = sp.linspace(400, 900, 500)
+    fy = funInterpFunction(x)
+
+    return fx, fy
+
+
+def LineDivider(yDatabase, yUnknown):
+    """
+    
+    Args 
+    """
+    div = []
+    zip_object = zip(yDatabase, yUnknown)
+    for yDatabase_i, yUnknown_i in zip_object:
+        div.append(yUnknown_i - yDatabase_i)
+    
+    return div
+
+
 
