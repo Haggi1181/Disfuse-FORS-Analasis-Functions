@@ -739,8 +739,8 @@ def PersentageToFractionalTXT(Dir, SaveDir):
 
 def LineMatchingAlgorithm(SpectraDir, PathUnknownSpectra, debug = False, HeaderSize = 0):
     """
-    Function to match a unknonw spectra to a known one from a database via a peek matching method
-    Args PeekDir: Directory containing peek data, PathUnknownSpectra: File path of the pre prossesed spectra of unknonw pigment, debug: flag in function to print additional debugging information
+    Function to match a unknonw spectra to a known one from a database via a peek matching method using deviding algorithm
+    Args PeekDir: Directory containing peek data, PathUnknownSpectra: File path of the pre prossesed spectra of unknonw pigment, debug: flag in function to print additional debugging information, HeaderSize: number of lines to skip in raw data files
     """
     
     arrFilePaths = []
@@ -800,8 +800,8 @@ def LineMatchingAlgorithm(SpectraDir, PathUnknownSpectra, debug = False, HeaderS
 
 def netabsderivative(x,y):
     """
-    
-    
+    Function to calculate the sum of the absolutes of the gradients of a line
+    Args x: list of x vals, y: list of y vals
     """
     # funInterpFunction = sp.interpolate.interp1d(x, y, fill_value= "extrapolate")
 
@@ -819,8 +819,8 @@ def netabsderivative(x,y):
 
 def smoother(x,y):
     """
-
-
+    Function to perform smoothing operations on a FORS spectra
+    Args x: list of x vals, y: list of y vals
     """
     #trims out nul values, a value that may be genorated by extreamly small floats, fixes issues with splev
     # print(x)
@@ -872,8 +872,8 @@ def smoother(x,y):
 
 def LineDivider(yDatabase, yUnknown):
     """
-    
-    Args 
+    Function to find the ratio of y vals for 2 sets of datas y values
+    Args yDatabase: Set of y values of known spectra, yUnknown: Set of y values for spectra of unknown pigment
     """
     div = []
     zip_object = zip(yDatabase, yUnknown)
