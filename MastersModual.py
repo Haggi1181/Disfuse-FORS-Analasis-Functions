@@ -10,6 +10,9 @@ import os
 import shutil
 import math
 
+plt.rcParams['font.size'] = 13
+plt.tight_layout()
+
 RunningLocation = os.path.abspath('')
 
 #print("Initialisation Complete")
@@ -21,14 +24,14 @@ def PlotProcessedSpectra(DataFilePath, MatPlotLibColour = None, HeaderSize = 0, 
     Args DataFilePath: File to plot, MatPlotLibColour: Colour for Mat Plot Lib plotts, HeaderSize: Number of lines to skip for header, title: lable at top of graph
     """
     xRaw,yRaw = sp.loadtxt(DataFilePath, unpack = True, skiprows = HeaderSize)
-    plt.plot(xRaw, yRaw, c = MatPlotLibColour)
+    plt.plot(xRaw, yRaw, c = MatPlotLibColour, label = Label)
 
     #plotting
     plt.ylim(0,1)
     plt.xlim(400, 900)
     plt.title(title)
     plt.xlabel("Wavelength / nm")
-    plt.ylabel("Reflectence")
+    plt.ylabel("Reflectance")
     plt.legend()
 
 def PlotFolderTxt(Dir, MatPlotLibColour = None, HeaderSize = 0, title = None):
@@ -58,7 +61,7 @@ def PlotFolderTxt(Dir, MatPlotLibColour = None, HeaderSize = 0, title = None):
     plt.xlim(400, 900)
     plt.title(title)
     plt.xlabel("Wavelength / nm")
-    plt.ylabel("Reflectence")
+    plt.ylabel("Reflectance")
     plt.legend()
 
 def SpectralGenAndSave(RawDataDir, DarkCountDir, ReflectanceStanderdDir, SaveDir, SaveFileName, HeaderSize = 14):
@@ -185,9 +188,9 @@ def DiffuseRefelctencePlotFolder(Dir, DarkCountFilePathName, ReflectenceStandard
     #plotting
     plt.ylim(0,1)
     plt.xlim(400, 900)
-    plt.title("Final Spectras")
+    plt.title("Final Spectra")
     plt.xlabel("Wavelength / nm")
-    plt.ylabel("Reflectence")
+    plt.ylabel("Reflectance")
     plt.legend()
 
 def DiffuseRefelctencePlotTxt(RawFileName, DarkCountFilePathName, ReflectenceStandardFilePathName, MatPlotLibColour=None, HeaderSize = 14, Legend = ""):
@@ -206,9 +209,9 @@ def DiffuseRefelctencePlotTxt(RawFileName, DarkCountFilePathName, ReflectenceSta
     #plotting
     plt.ylim(0,1)
     plt.xlim(400, 900)
-    plt.title("Final Spectras")
+    plt.title("Final Spectra")
     plt.xlabel("Wavelength / nm")
-    plt.ylabel("Reflectence")
+    plt.ylabel("Reflectance")
     plt.legend()
 
 def GeoMixing(ySpectra1, ySpectra2):
@@ -390,7 +393,7 @@ def PeekFinderPlotGenorater(Dir, SaveDir, Headersize = 0, debug = False):
         yMixesData[i] = list(tempy)
         plt.title(names[i])
         plt.xlabel("Wavelength/nm")
-        plt.ylabel("Reflectence/%")
+        plt.ylabel("Reflectance/%")
         plt.plot(xMixesData[i], yMixesData[i])
         test = PeekFinder(xMixesData[i], yMixesData[i], debug)
         if debug == True:
